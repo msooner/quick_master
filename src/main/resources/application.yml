@@ -12,9 +12,9 @@ spring:
       #mysql驱动
       driver-class-name: com.mysql.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://127.0.0.1:3306/seckill?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&?zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://127.0.0.1/quick_master?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&?zeroDateTimeBehavior=convertToNull
       username: root
-      password: root
+      password: hao123
       #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
@@ -51,7 +51,7 @@ spring:
     #redis数据库索引，默认是0
     database: 0
     #redis服务器地址，这里用本地的redis
-    host: 127.0.0.1
+    host: 10.211.55.6
     # Redis服务器连接密码（默认为空）
     password:
     #redis服务器连接端口，默认是6379
@@ -72,7 +72,7 @@ spring:
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: cn.tycoding.entity
+  type-aliases-package: com.ron.entity
   configuration:
     # 使用jdbc的getGeneratedKeys 可以获取数据库自增主键值
     use-generated-keys: true
@@ -80,11 +80,15 @@ mybatis:
     use-column-label: true
     # 开启驼峰命名转换，如：Table(create_time) -> Entity(createTime)。不需要我们关心怎么进行字段匹配，mybatis会自动识别`大写字母与下划线`
     map-underscore-to-camel-case: true
+    #启用懒加载，关联查询时只有在关联属性使用时才去查询
+    lazy-loading-enabled: true
+    #关闭侵入式懒加载，与懒加载配合使用
+    aggressive-lazy-loading: false
 
 # 打印sql
 logging:
   level:
-    cn.tycoding.mapper: DEBUG
+    com.ron.mapper: DEBUG
 
 
 

@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.tycoding</groupId>
-    <artifactId>springboot-seckill</artifactId>
+    <groupId>com.ron</groupId>
+    <artifactId>springboot-quick-master</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>springboot-seckill</name>
-    <description>springboot-seckill</description>
+    <name>springboot-quick-master</name>
+    <description>springboot-quick-master</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -84,7 +84,7 @@
         </dependency>
 
     </dependencies>
-
+    <!-- 这个插件可以将应用打包成一个可执行的jar包，将这个应用打包jar包，直接使用java -jar 打成的jar包名，来运行应用程序-->
     <build>
         <plugins>
             <plugin>
@@ -93,6 +93,5 @@
             </plugin>
         </plugins>
     </build>
-
-
+    
 </project>
