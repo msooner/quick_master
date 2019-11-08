@@ -11,11 +11,31 @@
  Target Server Version : 50635
  File Encoding         : utf-8
 
- Date: 11/06/2019 16:47:43 PM
+ Date: 11/08/2019 19:17:08 PM
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `r_system_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `r_system_user`;
+CREATE TABLE `r_system_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_by` varchar(20) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `last_modified_by` varchar(20) DEFAULT NULL,
+  `last_modified_date` datetime DEFAULT NULL,
+  `org_code` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `credential_expired_date` datetime DEFAULT NULL,
+  `is_locked` bit(1) DEFAULT NULL,
+  `role_names` varchar(255) DEFAULT NULL,
+  `role_ids` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `r_user_login_log`
