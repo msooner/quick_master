@@ -1,7 +1,7 @@
 package com.ron.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 登录逻辑
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Ron
  * @date 2019/11/6
  */
-@RestController
+@Controller
 @RequestMapping
 public class LoginController {
 
