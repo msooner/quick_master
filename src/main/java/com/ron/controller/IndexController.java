@@ -8,7 +8,6 @@ import com.ron.enums.SeckillStatEnum;
 import com.ron.exception.RepeatKillException;
 import com.ron.exception.SeckillCloseException;
 import com.ron.exception.SeckillException;
-import com.ron.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

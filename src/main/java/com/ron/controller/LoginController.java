@@ -22,7 +22,6 @@ public class LoginController {
     public String login() {
         //从redis中获取用户Id，如果为空，则展示登录，否则展示后台首页
 
-
         return "page/login";
     }
 }

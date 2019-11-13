@@ -8,9 +8,6 @@ import com.ron.enums.SeckillStatEnum;
 import com.ron.exception.RepeatKillException;
 import com.ron.exception.SeckillCloseException;
 import com.ron.exception.SeckillException;
-import com.ron.mapper.SeckillMapper;
-import com.ron.mapper.SeckillOrderMapper;
-import com.ron.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +25,7 @@ import java.util.List;
  * @date 2019/10/6
  */
 @Service
-public class SeckillServiceImpl implements SeckillService {
+public class SystemUserServiceImpl implements SeckillService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -1,6 +1,6 @@
 package com.ron.mapper;
 
-import com.ron.entity.Users;
+import com.ron.entity.SystemUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,20 +10,20 @@ import java.util.List;
  * @data 2019/11/05
  */
 @Mapper
-public interface UsersMapper {
+public interface SystemUsersMapper {
 
     /**
      * 查询某个用户信息
      */
-    Users getUser();
+    SystemUser getUser();
 
     /**
      *  查询所有用户信息
      */
-    List<Users> getUsers();
+    List<SystemUser> getUsers();
 
     /**
      * 获取某个部门所有用户
      */
-    List<Users> getDepartmentUsers();
+    List<SystemUser> getDepartmentUsers();
 }

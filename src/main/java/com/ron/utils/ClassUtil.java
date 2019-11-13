@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Ron 2019/08/01
  */
-public class ClassUtils {
+public class ClassUtil {
     /**
      * 获取target的第一个泛型参数Class
      *
