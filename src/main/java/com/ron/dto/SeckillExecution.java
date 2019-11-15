@@ -1,7 +1,7 @@
 package com.ron.dto;
 
 import com.ron.entity.SeckillOrder;
-import com.ron.enums.SeckillStatEnum;
+import com.ron.common.enums.HttpStatusEnum;
 
 /**
  * 封装执行秒杀后的结果
@@ -22,17 +22,17 @@ public class SeckillExecution {
     //秒杀成功的订单对象
     private SeckillOrder seckillOrder;
 
-    public SeckillExecution(Long seckillId, SeckillStatEnum seckillStatEnum, SeckillOrder seckillOrder) {
+    public SeckillExecution(Long seckillId, HttpStatusEnum httpStatusEnum, SeckillOrder seckillOrder) {
         this.seckillId = seckillId;
-        this.state = seckillStatEnum.getState();
-        this.stateInfo = seckillStatEnum.getStateInfo();
+        this.state = httpStatusEnum.getState();
+        this.stateInfo = httpStatusEnum.getStateInfo();
         this.seckillOrder = seckillOrder;
     }
 
-    public SeckillExecution(Long seckillId, SeckillStatEnum seckillStatEnum) {
+    public SeckillExecution(Long seckillId, HttpStatusEnum httpStatusEnum) {
         this.seckillId = seckillId;
-        this.state = seckillStatEnum.getState();
-        this.stateInfo = seckillStatEnum.getStateInfo();
+        this.state = httpStatusEnum.getState();
+        this.stateInfo = httpStatusEnum.getStateInfo();
     }
 
     public Long getSeckillId() {

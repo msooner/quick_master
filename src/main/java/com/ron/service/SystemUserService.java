@@ -17,6 +17,12 @@ public interface SystemUserService {
      */
 
     /**
+     * 从redis获取系统用户信息
+     * @return
+     */
+    SystemUser getUserInfo(String userCookie);
+
+    /**
      * 查询所有用户信息
      */
     List<SystemUser> getAllUsers();
@@ -24,7 +30,7 @@ public interface SystemUserService {
     /**
      * 查询某个用户信息
      */
-    SystemUser getUserById(Integer userId);
+    SystemUser getUserById(int userId);
 
     /**
      * 获取登录用户信息

@@ -1,27 +1,23 @@
 package com.ron.dto;
 
 /**
- * 封装JSON返回的结果格式
+ * 封装统一的JSON返回结果
  *
  * @auther Ron
  * @date 2019/10/8
  */
-public class SeckillResult<T> {
+public class ResponseResult<T> {
 
     private boolean success;
-
     private T data;
+    private int code;
 
-    private String error;
+    public ResponseResult() {}
 
-    public SeckillResult(boolean success, T data) {
+    public ResponseResult(boolean success, T data, int code) {
         this.success = success;
         this.data = data;
-    }
-
-    public SeckillResult(boolean success, String error) {
-        this.success = success;
-        this.error = error;
+        this.code = code;
     }
 
     public boolean isSuccess() {
@@ -40,20 +36,20 @@ public class SeckillResult<T> {
         this.data = data;
     }
 
-    public String getError() {
-        return error;
+    public int getCode() {
+        return code;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     @Override
     public String toString() {
-        return "SeckillResult{" +
+        return "ResponseResult{" +
                 "success=" + success +
                 ", data=" + data +
-                ", error='" + error + '\'' +
+                ", code=" + code +
                 '}';
     }
 }

@@ -14,8 +14,9 @@ public interface SystemUsersMapper {
 
     /**
      * 查询某个用户信息
+     * @param userId
      */
-    SystemUser getUser();
+    SystemUser getUser(int userId);
 
     /**
      *  查询所有用户信息

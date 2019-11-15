@@ -14,6 +14,8 @@ spring:
       encoding: UTF-8
       mode: LEGACYHTML5
       cache: false
+      servlet:
+        content-type: text/html
 
   #文件上传相关设置
   servlet:
