@@ -88,6 +88,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
         </dependency>
+    
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
 
     </dependencies>
     <!-- 这个插件可以将应用打包成一个可执行的jar包，将这个应用打包jar包，直接使用java -jar 打成的jar包名，来运行应用程序-->

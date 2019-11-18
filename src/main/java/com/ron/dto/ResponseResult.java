@@ -1,39 +1,23 @@
 package com.ron.dto;
 
 /**
- * 封装统一的JSON返回结果
+ * 封装统一的JSON返回结果格式
  *
  * @auther Ron
  * @date 2019/10/8
  */
 public class ResponseResult<T> {
 
-    private boolean success;
-    private T data;
     private int code;
+    private T data;
+    private String massage;
 
     public ResponseResult() {}
 
-    public ResponseResult(boolean success, T data, int code) {
-        this.success = success;
-        this.data = data;
+    public ResponseResult(int code, T data, String massage) {
         this.code = code;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
         this.data = data;
+        this.massage = massage;
     }
 
     public int getCode() {
@@ -44,10 +28,26 @@ public class ResponseResult<T> {
         this.code = code;
     }
 
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getMassage() {
+        return massage;
+    }
+
+    public void setMassage(String massage) {
+        this.massage = massage;
+    }
+
     @Override
     public String toString() {
         return "ResponseResult{" +
-                "success=" + success +
+                "massage=" + massage +
                 ", data=" + data +
                 ", code=" + code +
                 '}';

@@ -22,6 +22,8 @@ public interface SystemUserService {
      */
     SystemUser getUserInfo(String userCookie);
 
+    void setUserInfo(String userCacheKey, SystemUser systemUser, int cacheTime);
+
     /**
      * 查询所有用户信息
      */
@@ -34,11 +36,11 @@ public interface SystemUserService {
 
     /**
      * 获取登录用户信息
-     * @param userName
+     * @param username
      * @param password
      * @return
      */
-    SystemUser getLoginUser(String userName, String password);
+    SystemUser getLoginUser(String username, String password);
 
     /**
      * 添加用户信息

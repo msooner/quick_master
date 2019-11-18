@@ -109,23 +109,23 @@ public enum HttpStatusEnum {
         throw new IllegalArgumentException("No matching constant for [" + code + "]");
     }
 
-    public boolean is1xxInformational() {
+    public boolean isOneInformational() {
         return type() == INFORMATIONAL;
     }
 
-    public boolean is2xxSuccessful() {
+    public boolean isTwoSuccessful() {
         return type() == SUCCESSFUL;
     }
 
-    public boolean is3xxRedirection() {
+    public boolean isThreeRedirection() {
         return type() == REDIRECTION;
     }
 
-    public boolean is4xxClientError() {
+    public boolean isFourClientError() {
         return type() == CLIENT_ERROR;
     }
 
-    public boolean is5xxServerError() {
+    public boolean isFiveServerError() {
         return type() == SERVER_ERROR;
     }
 

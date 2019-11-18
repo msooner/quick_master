@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class SeckillServiceImplTest {
+public class SystemUserServiceImplTest {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

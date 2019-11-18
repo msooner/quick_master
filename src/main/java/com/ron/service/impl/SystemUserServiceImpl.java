@@ -1,12 +1,15 @@
 package com.ron.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.ron.entity.SystemUser;
-import com.ron.mapper.SystemUsersMapper;
+import com.ron.mapper.SystemUserMapper;
 import com.ron.service.SystemUserService;
 import com.ron.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +23,8 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //设置盐值字符串，随便定义，用于混淆MD5值
-    private final String salt = "sjajaspu-i-2jrfm;sd";
-    //设置秒杀redis缓存的key
-    private final String key = "seckill";
-
     @Autowired
-    private SystemUsersMapper systemUsersMapper;
+    private SystemUserMapper systemUsersMapper;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -43,16 +41,21 @@ public class SystemUserServiceImpl implements SystemUserService {
             return null;
         }
         //从redis中获取用户信息
-        SystemUser systemUser = (SystemUser) redisUtil.get(userCookie);
-
-        return systemUser;
+        return (SystemUser) redisUtil.get(userCookie);
     }
 
     /**
-     * 将用户信息存入redis中，以userCookie作为键
+     * 将用户信息存入redis缓存
+     *
+     * @param userCacheKey
+     * @param systemUser
+     * @param cacheTime
      */
-    public void setUserInfo() {
-
+    @Override
+    public void setUserInfo(String userCacheKey, SystemUser systemUser, int cacheTime) {
+        if (userCacheKey != null && userCacheKey.length() > 0 && systemUser != null) {
+            redisUtil.set(userCacheKey, systemUser, cacheTime);
+        }
     }
 
     /**
@@ -71,12 +74,12 @@ public class SystemUserServiceImpl implements SystemUserService {
     /**
      * 获取登录用户信息
      *
-     * @param userName
+     * @param username
      * @param password
      * @return
      */
     @Override
-    public SystemUser getLoginUser(String userName, String password) {
+    public SystemUser getLoginUser(String username, String password) {
         return null;
     }
 

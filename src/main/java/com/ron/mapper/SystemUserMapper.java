@@ -2,6 +2,7 @@ package com.ron.mapper;
 
 import com.ron.entity.SystemUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @data 2019/11/05
  */
 @Mapper
-public interface SystemUsersMapper {
+public interface SystemUserMapper {
 
     /**
      * 查询某个用户信息
@@ -22,6 +23,14 @@ public interface SystemUsersMapper {
      *  查询所有用户信息
      */
     List<SystemUser> getUsers();
+
+    /**
+     * 用户登录
+     * @param username
+     * @param password
+     * @return
+     */
+    SystemUser getLoginUser(@Param("username") String username, @Param("password") String password);
 
     /**
      * 获取某个部门所有用户

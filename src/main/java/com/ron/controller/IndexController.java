@@ -9,9 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 后台首页逻辑
@@ -23,8 +20,8 @@ import java.util.List;
 @RequestMapping("/index")
 public class IndexController {
 
-    @Autowired
-    private SystemUserService systemUserService;
+//    @Autowired
+//    private SystemUserService systemUserService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

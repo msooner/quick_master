@@ -1,5 +1,6 @@
 package com.ron.utils;
 
+import com.ron.common.constants.DigitConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -84,6 +85,19 @@ public class RedisUtil {
      */
     public void set(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
+    }
+
+    /**
+     * 将对象存储
+     *
+     * @param key
+     * @param o
+     */
+    public void set(String key, Object o, long cacheTime) {
+        if (cacheTime <= 0) {
+            cacheTime = DigitConstant.DEFAULT_CACHE_TIME;
+        }
+        redisTemplate.opsForValue().set(key, o, cacheTime);
     }
 
     /**
