@@ -47,20 +47,24 @@ public class LoginController {
         return "page/login";
     }
 
+    /**
+     * 登录逻辑
+     *
+     * @param username
+     * @param rememberMe
+     * @param password
+     * @param userCookie
+     * @return
+     */
     @ResponseBody
-    @PostMapping(value = "/loginResult", produces = "application/json")
-    public ResponseResult<Integer> loginResult(@RequestParam(value = "username", required = true) String username,
+    @PostMapping(value = "/loginResult")
+    public ResponseResult loginResult(@RequestParam(value = "username", required = true) String username,
                                                @RequestParam(value = "rememberMe", defaultValue = "1") Integer rememberMe,
                                                @RequestParam(value = "password", required = true) String password,
                                                @CookieValue(name = "user", defaultValue = "") String userCookie) {
-        //检测用户cookie信息
-        if ("".equals(userCookie)) {
-            return new ResponseResult(DigitConstant.USER_COOKIE_ERROR, "", StringConsant.USER_COOKIE_ERROR);
-        }
-        //判断是否重复登录
-        SystemUser systemUser = systemUserService.getUserInfo(userCookie);
-        if (systemUser.getId() > 0) {
-            return new ResponseResult(DigitConstant.ALREADY_LOGGED_ERROR, systemUser, StringConsant.ALREADY_LOGGED_ERROR);
+        //判断用户是否已经登录
+        if (systemUserService.checkUserIsLogged(userCookie)) {
+            return new ResponseResult(DigitConstant.ALREADY_LOGGED_ERROR, "", StringConsant.ALREADY_LOGGED_ERROR);
         }
         //加密密码
         String MD5Password = StringUtil.getMD5String(password, StringConsant.PASSWORD_SALT);
@@ -76,8 +80,31 @@ public class LoginController {
         if (rememberMe == 1) {
             cacheTime = DigitConstant.REMEMBER_ME_CACHE_TIME;
         }
-        systemUserService.setUserInfo(userCacheKey, systemUser, cacheTime);
+        systemUserService.setUserInfo(userCacheKey, sysUser, cacheTime);
 
         return new ResponseResult(DigitConstant.SUCCESS_LOGED, sysUser, StringConsant.SUCCESS_LOGED);
+    }
+
+    /**
+     * 注册逻辑
+     *
+     * @param username
+     * @param password
+     * @param rePassword
+     * @param email
+     * @param userCookie
+     * @return
+     */
+    @RequestMapping("/registerResult")
+    public ResponseResult registerResult(@RequestParam(value = "username", required = true) String username,
+                                         @RequestParam(value = "password", required = true) String password,
+                                         @RequestParam(value = "rePassword", required = true) String rePassword,
+                                         @RequestParam(value = "email", required = true) String email,
+                                         @CookieValue("user") String userCookie) {
+
+        //判断用户是否登录
+
+
+        return new ResponseResult(DigitConstant.SUCCESS_LOGED, "", StringConsant.SUCCESS_LOGED);
     }
 }

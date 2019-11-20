@@ -2,10 +2,14 @@ package com.ron.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.ron.common.constants.DigitConstant;
+import com.ron.common.constants.StringConsant;
+import com.ron.dto.ResponseResult;
 import com.ron.entity.SystemUser;
 import com.ron.mapper.SystemUserMapper;
 import com.ron.service.SystemUserService;
 import com.ron.utils.RedisUtil;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +84,12 @@ public class SystemUserServiceImpl implements SystemUserService {
      */
     @Override
     public SystemUser getLoginUser(String username, String password) {
-        return null;
+        return systemUsersMapper.getLoginUser(username, password);
+    }
+
+    @Override
+    public void registerUser(SystemUser systemUser) {
+        systemUsersMapper.registerUser(systemUser);
     }
 
     /**
@@ -116,5 +125,16 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     }
 
+    public boolean checkUserIsLogged(String userCookie) {
+        if ("".equals(userCookie) || userCookie == null) {
+            return false;
+        }
+        SystemUser systemUser = this.getUserInfo(userCookie);
+        if (systemUser != null || systemUser.getId() > 0) {
+            return true;
+        }
+
+        return false;
+    }
 
 }

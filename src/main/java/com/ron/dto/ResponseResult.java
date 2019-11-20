@@ -10,14 +10,14 @@ public class ResponseResult<T> {
 
     private int code;
     private T data;
-    private String massage;
+    private String message;
 
     public ResponseResult() {}
 
-    public ResponseResult(int code, T data, String massage) {
+    public ResponseResult(int code, T data, String message) {
         this.code = code;
         this.data = data;
-        this.massage = massage;
+        this.message = message;
     }
 
     public int getCode() {
@@ -36,18 +36,18 @@ public class ResponseResult<T> {
         this.data = data;
     }
 
-    public String getMassage() {
-        return massage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMassage(String massage) {
-        this.massage = massage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
     public String toString() {
         return "ResponseResult{" +
-                "massage=" + massage +
+                "massage=" + message +
                 ", data=" + data +
                 ", code=" + code +
                 '}';

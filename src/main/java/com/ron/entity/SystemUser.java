@@ -17,6 +17,7 @@ public class SystemUser implements Serializable{
     private Integer id;
     private String password;
     private String username;
+    private String email;
     private String createdBy;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -61,6 +62,14 @@ public class SystemUser implements Serializable{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCreatedBy() {

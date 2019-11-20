@@ -38,16 +38,17 @@ SpringBoot不是对Spring功能上的增强，而是提供了一种快速使用S
 └── src
     ├── main
     │   ├── java
-    │   │   └── cn
-    │   │       └── tycoding
+    │   │   └── com.ron
+    │   │       └── structure
     │   │           ├── QuickMasterApplication.java  -- SpringBoot启动器
     │   │           ├── controller  -- MVC的web层
     │   │           ├── dto  -- 统一封装的一些结果属性，和entity类似
     │   │           ├── entity  -- 实体类
-    │   │           ├── enums  -- 手动定义的字典枚举参数
+    │   │           ├── utils  -- 各种工具类
     │   │           ├── exception  -- 统一的异常结果
     │   │           ├── mapper  -- Mybatis-Mapper层映射接口，或称为DAO层
-    │   │           ├── redis  -- redis,jedis 相关配置
+    │   │           ├── common  -- 通常工作类，如常量、枚举等
+    │   │           ├── config  -- redis,jedis 相关配置
     │   │           └── service  -- 业务层
     │   └── resources
     │       ├── application.yml  -- SpringBoot核心配置

@@ -18,6 +18,7 @@ public interface SystemUserService {
 
     /**
      * 从redis获取系统用户信息
+     *
      * @return
      */
     SystemUser getUserInfo(String userCookie);
@@ -36,14 +37,18 @@ public interface SystemUserService {
 
     /**
      * 获取登录用户信息
+     *
      * @param username
      * @param password
      * @return
      */
     SystemUser getLoginUser(String username, String password);
 
+    void registerUser(SystemUser systemUser);
+
     /**
      * 添加用户信息
+     *
      * @param user
      * @return
      */
@@ -51,6 +56,7 @@ public interface SystemUserService {
 
     /**
      * 删除用户信息
+     *
      * @param userId
      * @return
      */
@@ -58,8 +64,11 @@ public interface SystemUserService {
 
     /**
      * 编辑用户信息
+     *
      * @param user
      * @return
      */
     void editUser(SystemUser user);
+
+    boolean checkUserIsLogged(String userCookie);
 }

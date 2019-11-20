@@ -3,6 +3,11 @@ server:
 
 #多环境配置
 spring:
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
   profiles:
     active: dev #指定用哪个环境
 

@@ -13,6 +13,7 @@ public class StringUtil {
 
     /**
      * 生成指定长度的随机字符串
+     *
      * @param length
      * @return
      */
@@ -33,6 +34,7 @@ public class StringUtil {
 
     /**
      * 判断字符串是否是数字型字符串
+     *
      * @param numberStr
      * @return
      */
@@ -50,6 +52,7 @@ public class StringUtil {
 
     /**
      * 生成MD5值
+     *
      * @param encodeString
      * @param salt
      * @return
@@ -62,5 +65,15 @@ public class StringUtil {
             salt = "";
         }
         return DigestUtils.md5DigestAsHex((encodeString + "/" + salt).getBytes()).toString();
+    }
+
+    public static boolean isEmail(String email) {
+
+        if ("".equals(email) || email == null) {
+            return false;
+        }
+
+
+        return true;
     }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50635
  File Encoding         : utf-8
 
- Date: 11/08/2019 19:17:08 PM
+ Date: 11/20/2019 19:09:45 PM
 */
 
 SET NAMES utf8mb4;
@@ -34,8 +34,16 @@ CREATE TABLE `r_system_user` (
   `is_locked` bit(1) DEFAULT NULL,
   `role_names` varchar(255) DEFAULT NULL,
   `role_ids` varchar(255) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `r_system_user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `r_system_user` VALUES ('10', null, null, null, null, null, 'bd97015b87bf9f04a9ad1e875d110ed9', 'admin1', null, null, null, null, null), ('11', null, null, null, null, null, 'bd97015b87bf9f04a9ad1e875d110ed9', 'admin2', null, null, null, null, null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `r_user_login_log`

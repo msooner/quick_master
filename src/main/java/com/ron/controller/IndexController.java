@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019/10/6
  */
 @Controller
-@RequestMapping("/index")
 public class IndexController {
 
 //    @Autowired
@@ -25,5 +24,9 @@ public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @RequestMapping("/index")
+    public String index() {
 
+        return "page/index";
+    }
 }

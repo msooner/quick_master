@@ -10,4 +10,12 @@
     <select id="getLoginUser" resultType="com.ron.entity.SystemUser">
         select id, username, role_names, role_ids from r_system_user where username = #{username} and password = #{password}
     </select>
+    
+    <select id="checkRegisterSystemUser" resultType="com.ron.entity.SystemUser">
+        select id from r_system_user where username = #{username} and email = #{email}
+    </select>
+    
+    <insert id="registerUser" parameterType="com.ron.entity.SystemUser">
+        insert into r_system_user (username, password, email, created_date, created_by) value (#{username}, #{password}, #{email}, #{created_date}, ${created_by})
+    </insert>
 </mapper>

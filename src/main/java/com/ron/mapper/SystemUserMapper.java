@@ -15,6 +15,7 @@ public interface SystemUserMapper {
 
     /**
      * 查询某个用户信息
+     *
      * @param userId
      */
     SystemUser getUser(int userId);
@@ -26,11 +27,18 @@ public interface SystemUserMapper {
 
     /**
      * 用户登录
+     *
      * @param username
      * @param password
      * @return
      */
     SystemUser getLoginUser(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 用户注册
+     */
+    //void registerUser(@Param("username") String username, @Param("password") String password, @Param("email") String email);
+    void registerUser(SystemUser systemUser);
 
     /**
      * 获取某个部门所有用户
