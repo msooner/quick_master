@@ -42,6 +42,7 @@ var Login = function () {
 
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
 	                $('.alert-error', $('.login-form')).show();
+	                $('#show-error').hide();
 	            },
 				//可以给未通过验证的元素加效果
 	            highlight: function (element) { // hightlight error inputs
@@ -105,13 +106,21 @@ var Login = function () {
 	            focusInvalid: false, // do not focus the last invalid input
 	            ignore: "",
 	            rules: {
+	            	username: {
+	            		required: true,
+                        minlength: 6,
+                        maxlength: 20
+					},
 	                email: {
 	                    required: true,
 	                    email: true
 	                }
 	            },
-
 	            messages: {
+	            	username: {
+	            		required: "请输入用户名."	,
+                        minlength: "用户名必需由两个字母组成!"
+					},
 	                email: {
 	                    required: "请输入邮箱地址."
 	                }
@@ -136,9 +145,14 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                window.location.href = "index.html";
+	                //window.location.href = "index.html";
+                    ajaxSendResetPasswordEmail();
 	            }
 	        });
+
+	        function ajaxSendResetPasswordEmail() {
+
+            }
 
 	        $('.forget-form input').keypress(function (e) {
 	            if (e.which == 13) {
@@ -176,7 +190,7 @@ var Login = function () {
                         maxlength: 20
 	                },
 	                rePassword: {
-	                    equalTo: "#register_password" //输入值必须和#register_password相同
+	                    equalTo: "#reg-password" //输入值必须和#register_password相同
 	                },
 	                email: {
 	                    required: true,
@@ -204,7 +218,8 @@ var Login = function () {
 	            },
 
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
-
+                    $('.alert-error', $('.register-form')).show();
+                    $('#show-reg-error').hide();
 	            },
 
 	            highlight: function (element) { // hightlight error inputs
@@ -226,20 +241,26 @@ var Login = function () {
 	            },
 				//验证成功提交事件
 	            submitHandler: function (form) {
-	                //window.location.href = "index.html";
 					ajaxRegisterSubmit();
 	            }
 	        });
 
             function ajaxRegisterSubmit() {
+            	var username = $("#reg-username").val();
+            	var password = $("#reg-password").val();
+            	if (username == password) {
+                    $("#show-reg-error").removeClass("hide");
+                    $("#show-reg-error>span").html("用户名和密码不能相同!");
+                    return false;
+				}
 				$.ajax({
 					type: "POST",
 					url: "/registerResult",
 					data: {
-						username: $("#reg-username"),
-						password: $("#reg-password"),
-						rePassword: $("#reg-rePassword"),
-						email: $("#reg-email")
+						username: $("#reg-username").val(),
+						password: $("#reg-password").val(),
+						rePassword: $("#reg-rePassword").val(),
+						email: $("#reg-email").val()
 					},
 					success: function (data) {
                         if (data.code != 0) {

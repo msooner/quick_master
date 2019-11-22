@@ -4,7 +4,11 @@
 
 <mapper namespace="com.ron.mapper.SystemUserMapper">
     <select id="getUser" resultType="com.ron.entity.SystemUser">
-        select * from r_system_user where user_id = #{user_id}
+        select * from r_system_user where id = #{userId}
+    </select>
+    
+    <select id="getUserByEmail" resultType="com.ron.entity.SystemUser">
+        select id, username, email, role_names, role_ids from r_system_user where email = #{email}
     </select>
     
     <select id="getLoginUser" resultType="com.ron.entity.SystemUser">
@@ -15,7 +19,8 @@
         select id from r_system_user where username = #{username} and email = #{email}
     </select>
     
-    <insert id="registerUser" parameterType="com.ron.entity.SystemUser">
-        insert into r_system_user (username, password, email, created_date, created_by) value (#{username}, #{password}, #{email}, #{created_date}, ${created_by})
+    <insert id="registerUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.ron.entity.SystemUser">
+        insert into r_system_user(username, password, email, created_by)
+        values ( #{username}, #{password}, #{email}, #{createdBy} )
     </insert>
 </mapper>

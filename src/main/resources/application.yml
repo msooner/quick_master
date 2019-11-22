@@ -36,6 +36,17 @@ spring:
     restart:
       enabled: true #是否支持热部署
 
+  mail:
+    host: smtp.exmail.qq.com
+    username: ron@jollycorp.com
+    password: Hyt19830401
+    protocol: smtp
+    encoding: UTF-8
+    port: 465
+    tiemout: 25000
+    from: Ron
+    personal: 触龙
+
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -57,7 +68,6 @@ logging:
   config: src/main/resources/logback.xml
   level:
     com.ron.mapper: INFO #此包下的所有日志输入级别，在生产环境中设置成ERROR
-
 
 #通过文档块划分不同的环境配置
 ---
@@ -108,6 +118,16 @@ spring:
         max-idle: 8
         # 连接池中的最小空闲连接
         min-idle: 0
+  mail:
+    host: smtp.exmail.qq.com
+    username: ron@jollycorp.com
+    password: Hyt19830401
+    protocol: smtp
+    encoding: UTF-8
+    port: 465
+    tiemout: 25000
+    from: Ron
+    personal: 触龙
 
 ---
 #测试环境

@@ -3,6 +3,7 @@ package com.ron.mapper;
 import com.ron.entity.SystemUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface SystemUserMapper {
      *
      * @param userId
      */
-    SystemUser getUser(int userId);
+    SystemUser getUser(@Param("userId") Integer userId);
 
     /**
      *  查询所有用户信息
@@ -37,8 +38,16 @@ public interface SystemUserMapper {
     /**
      * 用户注册
      */
-    //void registerUser(@Param("username") String username, @Param("password") String password, @Param("email") String email);
     void registerUser(SystemUser systemUser);
+
+    /**
+     * 检测账户是否存在
+     *
+     * @param username
+     * @param email
+     * @return
+     */
+    SystemUser checkRegisterSystemUser(@Param("username") String username, @Param("email") String email);
 
     /**
      * 获取某个部门所有用户

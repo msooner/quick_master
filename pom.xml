@@ -94,6 +94,17 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+    
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
     </dependencies>
     <!-- 这个插件可以将应用打包成一个可执行的jar包，将这个应用打包jar包，直接使用java -jar 打成的jar包名，来运行应用程序-->

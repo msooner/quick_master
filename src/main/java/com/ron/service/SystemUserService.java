@@ -1,6 +1,7 @@
 package com.ron.service;
 
 import com.ron.entity.SystemUser;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -32,6 +33,9 @@ public interface SystemUserService {
 
     /**
      * 查询某个用户信息
+     *
+     * @param userId
+     * @return
      */
     SystemUser getUserById(int userId);
 
@@ -44,6 +48,11 @@ public interface SystemUserService {
      */
     SystemUser getLoginUser(String username, String password);
 
+    /**
+     * 用户注册
+     *
+     * @return
+     */
     void registerUser(SystemUser systemUser);
 
     /**
@@ -71,4 +80,13 @@ public interface SystemUserService {
     void editUser(SystemUser user);
 
     boolean checkUserIsLogged(String userCookie);
+
+    /**
+     * 检测用户是否已经存在
+     *
+     * @param username
+     * @param email
+     * @return
+     */
+    boolean checkRegisterSystemUser(String username, String email);
 }

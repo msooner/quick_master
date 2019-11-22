@@ -9,7 +9,9 @@ import com.ron.entity.SystemUser;
 import com.ron.mapper.SystemUserMapper;
 import com.ron.service.SystemUserService;
 import com.ron.utils.RedisUtil;
+import com.ron.utils.StringUtil;
 import org.apache.ibatis.annotations.Param;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,15 +127,40 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     }
 
+    /**
+     * 判断用户是否已经登录
+     *
+     * @param userCookie
+     * @return
+     */
     public boolean checkUserIsLogged(String userCookie) {
         if ("".equals(userCookie) || userCookie == null) {
             return false;
         }
         SystemUser systemUser = this.getUserInfo(userCookie);
-        if (systemUser != null || systemUser.getId() > 0) {
+        if (systemUser != null && systemUser.getId() > 0) {
             return true;
         }
 
+        return false;
+    }
+
+    /**
+     * 检测用户是否已经存在
+     *
+     * @param username
+     * @param email
+     * @return
+     */
+    @Override
+    public boolean checkRegisterSystemUser(String username, String email) {
+        if ("".equals(username) || "".equals(email)) {
+            return false;
+        }
+        SystemUser systemUser = systemUsersMapper.checkRegisterSystemUser(username, email);
+        if (systemUser != null) {
+            return true;
+        }
         return false;
     }
 

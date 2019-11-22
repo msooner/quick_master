@@ -162,7 +162,14 @@ public class SystemUser implements Serializable{
                 '}';
     }
 
-    public SystemUser() {
+    public SystemUser() {}
+
+    public SystemUser(Integer id, String password, String username, String createdBy, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.createdBy = createdBy;
+        this.email = email;
     }
 
     public SystemUser(Integer id, String password, String username, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, String orgCode, Date credentialExpiredDate, Byte isLocked, String roleNames, String roleIds) {
