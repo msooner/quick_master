@@ -53,4 +53,14 @@ public interface SystemUserMapper {
      * 获取某个部门所有用户
      */
     List<SystemUser> getDepartmentUsers();
+
+    /**
+     * 用户重置密码
+     *
+     * @param username
+     * @param email
+     * @param password
+     * @return boolean
+     */
+    boolean updateForgotPassword(@Param("username") String username, @Param("email") String email, @Param("password") String password);
 }

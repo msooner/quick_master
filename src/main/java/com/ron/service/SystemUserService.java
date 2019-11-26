@@ -89,4 +89,6 @@ public interface SystemUserService {
      * @return
      */
     boolean checkRegisterSystemUser(String username, String email);
+
+    boolean updateForgotPassword(String username, String email, String password);
 }

@@ -164,4 +164,13 @@ public class SystemUserServiceImpl implements SystemUserService {
         return false;
     }
 
+    @Override
+    public boolean updateForgotPassword(String username, String email, String password) {
+        if (username.length() > 0 && email.length() > 0 && password.length() > 0) {
+            return systemUsersMapper.updateForgotPassword(username, email, password);
+        }
+
+        return false;
+    }
+
 }

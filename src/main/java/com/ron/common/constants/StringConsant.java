@@ -25,6 +25,12 @@ public final class StringConsant {
     //找回密码相关
     public static final String ACCOUNT_NOEXISTS = "您的账户信息不存在!";
     public static final String SEND_EMAIL_SUCCESS = "重置密码的链接邮件已成功发送!";
+    public static final String SET_PASSWORD_SALT = "get-password";
+    public static final String RESET_PASSWORD_NOTE = "此邮件为重置密码邮件，请复制链接到浏览器的地址栏，回车后将进入重置密码界面: ";
+    public static final String RESET_PASSWORD_SUBJECT = "重置密码!";
+    public static final String RESET_PASSWORD_ERROR = "重置密码非法!";
+    public static final String RESET_PASSWORD_SUCCESS = "重置密码成功!";
+    public static final String RESET_PASSWORD_FAIL = "重置密码失败!";
 
     //加密salt
     public static final String PASSWORD_SALT = "hao123";
