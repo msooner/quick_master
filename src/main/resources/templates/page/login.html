@@ -8,7 +8,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Quick Master后台管理系统</title>
+        <title th:text="#{login.title}"></title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
         <meta content="" name="author"/>
@@ -25,7 +25,7 @@
         <!-- BEGIN PAGE LEVEL STYLES -->
         <link th:href="@{../../css/login.css}" href="media/css/login.css" rel="stylesheet" type="text/css"/>
         <!-- END PAGE LEVEL STYLES -->
-        <!--<link rel="shortcut icon" href="media/image/favicon.ico"/>-->
+        <link rel="shortcut icon" th:href="@{../../image/favicon.ico}"/>
     </head>
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
@@ -39,10 +39,10 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="form-vertical login-form" action="" method="post">
-                <h3 class="form-title">登录</h3>
+                <h3 class="form-title" th:text="#{login.tip}"></h3>
                 <div class="alert alert-error hide">
                     <button class="close" data-dismiss="alert"></button>
-                    <span>输入用户名和密码.</span>
+                    <span th:text="#{login.usernamePasswordTip}"></span>
                 </div>
                 <div class="alert alert-error hide" id="show-error">
                     <button class="close" data-dismiss="alert"></button>
@@ -50,141 +50,151 @@
                 </div>
                 <div class="control-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.username}"></label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-user"></i>
-                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" name="username" id="username"/>
+                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名"  th:placeholder="#{login.username}" name="username" id="username"/>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.password}">密码</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-lock"></i>
-                            <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="password" id="password"/>
+                            <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" th:placeholder="#{login.password}" name="password" id="password"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
                     <label class="checkbox">
-                        <input type="checkbox" name="rememberMe" value="1" id="rememberMe"/> 记住我
+                        <input type="checkbox" name="rememberMe" value="1" id="rememberMe"/> [[#{login.rememberMe}]]
                     </label>
                     <button type="submit" class="btn green pull-right">
-                        登录 <i class="m-icon-swapright m-icon-white"></i>
+                        [[#{login.tip}]] <i class="m-icon-swapright m-icon-white"></i>
                     </button>
                 </div>
                 <div class="forget-password">
-                    <h4>忘记密码 ?</h4>
+                    <h4 th:text="#{login.forgetPassword}">忘记密码 ?</h4>
                     <p>
-                        <a href="javascript:;" class="" id="forget-password">找回并重置密码</a>
+                        <a href="javascript:;" class="" id="forget-password" th:text="#{login.getPassword}">找回并重置密码</a>
                     </p>
                 </div>
                 <div class="create-account">
                     <p>
-                        没有账户 ?&nbsp;
-                        <a href="javascript:;" id="register-btn" class="">新建账户</a>
+                        [[#{login.noAccount}]]&nbsp;
+                        <a href="javascript:;" id="register-btn" class="" th:text="#{login.newAccount}">新建账户</a>
+                    </p>
+                </div>
+                <div class="language-choice">
+                    <p>
+                        <span class="lang">
+                            <a th:href="@{/login(lang='zh_CN')}">中文</a>
+                        </span>
+                        <span  class="lang">
+                            <a th:href="@{/login(lang='en_US')}">English</a>
+                        </span>
                     </p>
                 </div>
             </form>
             <!-- END LOGIN FORM -->
             <!-- BEGIN FORGOT PASSWORD FORM -->
             <form class="form-vertical forget-form" action="" method="post">
-                <h3 class="">忘记密码 ?</h3>
-                <p>请输入用户名和邮箱重置密码:</p>
+                <h3 class="" th:text="#{login.forgetPassword}">忘记密码 ?</h3>
+                <p th:text="#{login.inputResetPassword}">请输入用户名和邮箱重置密码:</p>
                 <div class="alert alert-error hide" id="show-forget-error">
                     <button class="close" data-dismiss="alert"></button>
                     <span></span>
                 </div>
                 <div class="control-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.username}">用户名</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-user"></i>
-                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" name="username" id="forget_username"/>
+                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名"  th:placeholder="#{login.username}" name="username" id="forget_username"/>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label visible-ie8 visible-ie9">邮箱</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.email}">邮箱</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-envelope"></i>
-                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="邮箱" name="email" id="forget_email"/>
+                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="邮箱" th:text="#{login.email}" name="email" id="forget_email"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
                     <button type="button" id="back-btn" class="btn">
-                        <i class="m-icon-swapleft"></i> 回退
+                        <i class="m-icon-swapleft"></i> [[#{login.back}]]
                     </button>
                     <button type="submit" class="btn green pull-right">
-                        提交 <i class="m-icon-swapright m-icon-white"></i>
+                        [[#{login.submit}]] <i class="m-icon-swapright m-icon-white"></i>
                     </button>
                 </div>
             </form>
             <!-- END FORGOT PASSWORD FORM -->
             <!-- BEGIN REGISTRATION FORM -->
             <form class="form-vertical register-form" action="" method="post">
-                <h3 class="">注册</h3>
+                <h3 class="" th:text="#{login.register}">注册</h3>
                 <div class="alert alert-error hide" id="show-reg-error">
                     <button class="close" data-dismiss="alert"></button>
                     <span></span>
                 </div>
-                <p>输入您的账户信息:</p>
+                <p th:text="#{login.inputAccountInfo}">输入您的账户信息:</p>
                 <div class="control-group">
-                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.username}">用户名</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-user"></i>
-                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" name="username" id="reg-username"/>
+                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" th:placeholder="#{login.username}" name="username" id="reg-username"/>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.password}">密码</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-lock"></i>
-                            <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="password" id="reg-password"/>
+                            <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" th:placeholder="#{login.password}" name="password" id="reg-password"/>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label visible-ie8 visible-ie9">重复密码</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.repeatPassword}">重复密码</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-ok"></i>
-                            <input class="m-wrap placeholder-no-fix" type="password" placeholder="重复密码" name="rePassword" id="reg-rePassword"/>
+                            <input class="m-wrap placeholder-no-fix" type="password" placeholder="重复密码" th:placeholder="#{login.repeatPassword}" name="rePassword" id="reg-rePassword"/>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">邮箱</label>
+                    <label class="control-label visible-ie8 visible-ie9" th:text="#{login.email}">邮箱</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-envelope"></i>
-                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="邮箱" name="email" id="reg-email"/>
+                            <input class="m-wrap placeholder-no-fix" type="text" placeholder="邮箱" th:placeholder="#{login.email}" name="email" id="reg-email"/>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
                         <label class="checkbox">
-                            <input type="checkbox" name="tnc"/> 同意服务及协议
+                            <input type="checkbox" name="tnc"/> [[#{login.agree}]]
                         </label>
                         <div id="register_tnc_error"></div>
                     </div>
                 </div>
                 <div class="form-actions">
                     <button id="register-back-btn" type="button" class="btn">
-                        <i class="m-icon-swapleft"></i> 回退
+                        <i class="m-icon-swapleft"></i> [[#{login.back}]]
                     </button>
                     <button type="submit" id="register-submit-btn" class="btn green pull-right">
-                        注册 <i class="m-icon-swapright m-icon-white"></i>
+                        [[#{login.register}]] <i class="m-icon-swapright m-icon-white"></i>
                     </button>
                 </div>
             </form>
@@ -193,7 +203,7 @@
         <!-- END LOGIN -->
         <!-- BEGIN COPYRIGHT -->
         <div class="copyright">
-            2019 &copy; QuickMaster 后台管理系统.
+            2019 &copy; [[#{login.title}]].
         </div>
 
         <!-- END COPYRIGHT -->
@@ -202,6 +212,7 @@
 
         <!-- BEGIN CORE PLUGINS -->
         <script th:src="@{../../js/jquery-1.10.1.min.js}" type="text/javascript"></script>
+        <script th:src="@{../../js/jquery.i18n.js}" type="text/javascript"></script>
         <script th:src="@{../../js/jquery-migrate-1.2.1.min.js}" type="text/javascript"></script>
         <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
         <script th:src="@{../../js/jquery-ui-1.10.1.custom.min.js}" type="text/javascript"></script>

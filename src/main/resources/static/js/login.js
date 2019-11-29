@@ -1,5 +1,4 @@
 var Login = function () {
-    
     return {
         //main function to initiate the module
         init: function () {
@@ -31,7 +30,7 @@ var Login = function () {
 				//自定义提示信息
 	            messages: {
 	                username: {
-	                    required: "请求输入用户名.",
+	                    required: "#{login.agree}",
                         minlength: "用户名必需由两个字母组成!"
 	                },
 	                password: {
@@ -82,7 +81,7 @@ var Login = function () {
 
 						   return false;
 					   }
-					   window.location.href = "/index"
+					   window.location.href = "/admin"
                    },
 				   error: function (e) {
 					   console.log(e);
@@ -151,7 +150,6 @@ var Login = function () {
 	        });
 
 	        function ajaxSendResetPasswordEmail() {
-
 				$.ajax({
 					type: "POST",
 					url: "/sendResetPasswordEmail",
@@ -175,7 +173,7 @@ var Login = function () {
 	        $('.forget-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.forget-form').validate().form()) {
-	                    window.location.href = "index.html";
+	                    window.location.href = "/admin";
 	                }
 	                return false;
 	            }
@@ -288,7 +286,7 @@ var Login = function () {
                             return false;
                         }
 
-                        window.location.href = "/index";
+                        window.location.href = "/admin";
                     }
 				});
 			}
@@ -375,7 +373,6 @@ var Login = function () {
                     }
                 });
             }
-
 
 	        jQuery('#register-btn').click(function () {
 	            jQuery('.login-form').hide();

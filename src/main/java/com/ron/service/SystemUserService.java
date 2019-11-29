@@ -1,7 +1,6 @@
 package com.ron.service;
 
 import com.ron.entity.SystemUser;
-import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -22,8 +21,15 @@ public interface SystemUserService {
      *
      * @return
      */
-    SystemUser getUserInfo(String userCookie);
+    Object getUserInfo(String userCookie);
 
+    /**
+     * 缓存用户信息
+     *
+     * @param userCacheKey
+     * @param systemUser
+     * @param cacheTime
+     */
     void setUserInfo(String userCacheKey, SystemUser systemUser, int cacheTime);
 
     /**
@@ -91,4 +97,6 @@ public interface SystemUserService {
     boolean checkRegisterSystemUser(String username, String email);
 
     boolean updateForgotPassword(String username, String email, String password);
+
+    void logout(String userCookie);
 }

@@ -12,7 +12,7 @@ import java.util.Date;
  * @auther Ron
  * @date 2019/11/7
  */
-public class SystemUser implements Serializable{
+public class SystemUser implements Serializable {
 
     private Integer id;
     private String password;
@@ -164,12 +164,13 @@ public class SystemUser implements Serializable{
 
     public SystemUser() {}
 
-    public SystemUser(Integer id, String password, String username, String createdBy, String email) {
+    public SystemUser(Integer id, String username, String password, String createdBy, String email, Byte isLocked) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.createdBy = createdBy;
         this.email = email;
+        this.isLocked = isLocked;
     }
 
     public SystemUser(Integer id, String password, String username, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, String orgCode, Date credentialExpiredDate, Byte isLocked, String roleNames, String roleIds) {

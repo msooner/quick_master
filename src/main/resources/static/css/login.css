@@ -113,6 +113,18 @@ Login page
   margin-top: 15px;
 }
 
+.login .content .language-choice {
+  border-top: 1px dotted #eee;
+  padding-top: 10px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.login .content .language-choice .lang{
+  display: inline-block;
+  margin-left: 30px;
+}
+
 .login .content .create-account a {
   display: inline-block;
   margin-top: 5px;

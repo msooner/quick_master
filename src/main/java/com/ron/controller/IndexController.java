@@ -19,14 +19,21 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class IndexController {
 
-//    @Autowired
-//    private SystemUserService systemUserService;
+    @Autowired
+    private SystemUserService systemUserService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("/index")
-    public String index() {
+    @RequestMapping("/admin")
+    public String index(@CookieValue(value = "user", required = false) String userCookie) {
+
 
         return "page/index";
+    }
+
+    @RequestMapping("/show-error")
+    public String showError() {
+
+        return "page/error";
     }
 }

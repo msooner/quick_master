@@ -23,12 +23,16 @@ spring:
         content-type: text/html
 
   #devtools插件
-  devtools:
-    livereload:
-      enabled: true #是否支持livereload
-      port: 35729
-    restart:
-      enabled: true #是否支持热部署
+#  devtools:
+#    livereload:
+#      enabled: true #是否支持livereload
+#      port: 35729
+#    restart:
+#      enabled: true
+
+  #配置国际化资源文件
+  messages:
+    basename: i18n.login,i18n.index,i18n.error
 
 #mybatis配置
 mybatis:

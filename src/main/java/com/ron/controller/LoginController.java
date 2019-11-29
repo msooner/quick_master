@@ -11,6 +11,7 @@ import com.ron.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,8 +19,7 @@ import java.util.Map;
 /**
  * 登录逻辑
  *
- * @author Ron
- * @date 2019/11/6
+ * @author Ron 2019/11/6
  */
 @Controller
 @RequestMapping
@@ -37,20 +37,21 @@ public class LoginController {
     /**
      * 用户登录界面(默认为登录界面，如果已经登录则跳转至用户中心)
      *
-     * @return String
+     * @param userCookie 用户cookie
+     * @return string
      */
     @GetMapping({"/", "/login"})
     public String login(@CookieValue(name = "user", defaultValue = "") String userCookie) {
         //如果用户Cookie不存在，则生成
-        if ("".equals(userCookie) || userCookie == null) {
+        if (StringUtils.isEmpty(userCookie)) {
             String randomString = StringUtil.getRandomString(10);
             String userMD5Cookie = StringUtil.getMD5String(randomString, "");
             CookieUtil.setCookie("user", userMD5Cookie);
         } else {
             //如果用户已登录，则跳转至后台首页
-            SystemUser systemUser = systemUserService.getUserInfo(userCookie);
-            if (systemUser != null) {
-                return "page/index";
+            SystemUser systemUser = (SystemUser) systemUserService.getUserInfo(userCookie);
+            if (systemUser != null && systemUser.getId() > 0) {
+                return "redirect:/admin";
             }
         }
 
@@ -60,17 +61,17 @@ public class LoginController {
     /**
      * 登录逻辑
      *
-     * @param username
-     * @param rememberMe
-     * @param password
-     * @param userCookie
-     * @return
+     * @param username 用户名
+     * @param rememberMe 记住我
+     * @param password 密码
+     * @param userCookie 用户cookie
+     * @return ResponseResult
      */
     @ResponseBody
     @PostMapping(value = "/loginResult")
-    public ResponseResult loginResult(@RequestParam(value = "username", required = true) String username,
+    public ResponseResult loginResult(@RequestParam(value = "username") String username,
                                                @RequestParam(value = "rememberMe", defaultValue = "1") Integer rememberMe,
-                                               @RequestParam(value = "password", required = true) String password,
+                                               @RequestParam(value = "password") String password,
                                                @CookieValue(name = "user", defaultValue = "") String userCookie) {
         //验证用户名或密码
         if (StringUtil.isSqlInjection(username) || StringUtil.isSqlInjection(password)) {
@@ -89,12 +90,11 @@ public class LoginController {
         }
 
         //缓存用户信息
-        String userCacheKey = userCookie + String.valueOf(sysUser.getId());
         int cacheTime = DigitConstant.DEFAULT_CACHE_TIME;
         if (rememberMe == 1) {
             cacheTime = DigitConstant.REMEMBER_ME_CACHE_TIME;
         }
-        systemUserService.setUserInfo(userCacheKey, sysUser, cacheTime);
+        systemUserService.setUserInfo(userCookie, sysUser, cacheTime);
 
         return new ResponseResult(DigitConstant.SUCCESS_LOGED, sysUser, StringConsant.SUCCESS_LOGED);
     }
@@ -102,19 +102,19 @@ public class LoginController {
     /**
      * 注册逻辑
      *
-     * @param username
-     * @param password
-     * @param rePassword
-     * @param email
-     * @param userCookie
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @param rePassword 重复密码
+     * @param email 用户邮箱
+     * @param userCookie 用户cookie
+     * @return ResponseResult
      */
     @ResponseBody
     @PostMapping("/registerResult")
-    public ResponseResult registerResult(@RequestParam(value = "username", required = true) String username,
-                                         @RequestParam(value = "password", required = true) String password,
-                                         @RequestParam(value = "rePassword", required = true) String rePassword,
-                                         @RequestParam(value = "email", required = true) String email,
+    public ResponseResult registerResult(@RequestParam(value = "username") String username,
+                                         @RequestParam(value = "password") String password,
+                                         @RequestParam(value = "rePassword") String rePassword,
+                                         @RequestParam(value = "email") String email,
                                          @CookieValue("user") String userCookie) {
 
         //判断用户是否已经登录
@@ -145,7 +145,9 @@ public class LoginController {
         String createBy = "System";
         //加密密码
         String MD5Password = StringUtil.getMD5String(password, StringConsant.PASSWORD_SALT);
-        SystemUser systemUser = new SystemUser(null, username, MD5Password, createBy, email);
+        //新注册用户默认锁定
+        Byte isLocked = 0;
+        SystemUser systemUser = new SystemUser(null, username, MD5Password, createBy, email, isLocked);
         systemUserService.registerUser(systemUser);
         int systemUserId = systemUser.getId();
         if (systemUserId <= 0) {
@@ -167,13 +169,14 @@ public class LoginController {
     /**
      * 发送找回密码邮件
      *
-     * @param email
-     * @return
+     * @param username 用户名
+     * @param email 邮箱
+     * @return ResponseResult
      */
     @ResponseBody
     @RequestMapping("/sendResetPasswordEmail")
-    public ResponseResult sendResetPasswordEmail(@RequestParam(value = "username", required = true) String username,
-                                                 @RequestParam(value = "email", required = true) String email) {
+    public ResponseResult sendResetPasswordEmail(@RequestParam(value = "username") String username,
+                                                 @RequestParam(value = "email") String email) {
         //检测用户邮箱是否存在
         if (!systemUserService.checkRegisterSystemUser(username, email)) {
             return new ResponseResult(DigitConstant.ACCOUNT_NOEXISTS, "", StringConsant.ACCOUNT_NOEXISTS);
@@ -202,11 +205,12 @@ public class LoginController {
     /**
      * 通过重置密码链接，展示用户修改密码界面
      *
-     * @param base64String
-     * @return
+     * @param base64String 加密串
+     * @param map map
+     * @return string
      */
     @RequestMapping("/resetPassword/{base64String}")
-    public String resetPassword(@PathVariable(value = "base64String", required = true) String base64String, Map map) {
+    public String resetPassword(@PathVariable(value = "base64String") String base64String, Map map) {
         byte[] base64User = StringUtil.base64Decode(base64String);
         String base64DecodeString = new String(base64User);
         String[] decodeUser = base64DecodeString.split(":");
@@ -246,18 +250,18 @@ public class LoginController {
     /**
      * 重置密码
      *
-     * @param password
-     * @param rePassword
-     * @param username
-     * @param email
-     * @return
+     * @param password 密码
+     * @param rePassword 重复密码
+     * @param username 用户名
+     * @param email 邮箱
+     * @return ResponseResult
      */
     @ResponseBody
     @RequestMapping("/updateForgotPassword")
-    public ResponseResult updateForgotPassword(@RequestParam(value = "password", required = true) String password,
-                                       @RequestParam(value = "rePassword", required = true) String rePassword,
-                                       @RequestParam(value = "username", required = true) String username,
-                                       @RequestParam(value = "email", required = true) String email) {
+    public ResponseResult updateForgotPassword(@RequestParam(value = "password") String password,
+                                       @RequestParam(value = "rePassword") String rePassword,
+                                       @RequestParam(value = "username") String username,
+                                       @RequestParam(value = "email") String email) {
         //检测用户信息
         if (StringUtil.isSqlInjection(username)) {
             return new ResponseResult(DigitConstant.USER_NAME_ERROR, "", StringConsant.USER_NAME_ERROR);
@@ -292,12 +296,31 @@ public class LoginController {
     /**
      * 用户重置密码结果页
      *
-     * @return
+     * @param userCookie 用户名cookie
+     * @return String
      */
     @RequestMapping("/resetPasswordResult")
-    public String resetPasswordResult() {
+    public String resetPasswordResult(@CookieValue("user") String userCookie) {
+        //如果用户已经登录，则跳转至用户中心
+        if (systemUserService.checkUserIsLogged(userCookie)) {
+            return "redirect:/admin";
+        }
 
         return "page/reset-password-result";
+    }
+
+    /**
+     * 用户登出
+     *
+     * @param userCookie 用户cookie
+     * @return String
+     */
+    @RequestMapping("/logout")
+    public String logout(@CookieValue("user") String userCookie) {
+        //清除用户redis信息
+        systemUserService.logout(userCookie);
+
+        return "redirect:/login";
     }
 
 }

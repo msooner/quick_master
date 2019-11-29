@@ -1,14 +1,18 @@
 package com.ron.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.ron.common.constants.DigitConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Redis操作工具类
@@ -73,7 +77,11 @@ public class RedisUtil {
      * @return 值
      */
     public Object get(String key) {
-        return key == null ? null : redisTemplate.opsForValue().get(key);
+        if (! StringUtils.isEmpty(key)) {
+             return redisTemplate.opsForValue().get(key);
+        }
+
+        return null;
     }
 
     /**
@@ -114,6 +122,25 @@ public class RedisUtil {
         } else {
             redisTemplate.opsForValue().set(key, value);
         }
+    }
+
+    /**
+     * 删除key
+     *
+     * @param key
+     */
+    public void deleteKey(String key) {
+        redisTemplate.delete(key);
+    }
+
+    /**
+     * 删除多个key
+     *
+     * @param keys
+     */
+    public void deleteKey(String... keys) {
+        Set<String> kSet = Stream.of(keys).map(k -> k).collect(Collectors.toSet());
+        redisTemplate.delete(kSet);
     }
 
     /**

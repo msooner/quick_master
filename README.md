@@ -47,10 +47,11 @@ SpringBoot不是对Spring功能上的增强，而是提供了一种快速使用S
     │   │           ├── utils  -- 各种工具类
     │   │           ├── exception  -- 统一的异常结果
     │   │           ├── mapper  -- Mybatis-Mapper层映射接口，或称为DAO层
-    │   │           ├── common  -- 通常工作类，如常量、枚举等
+    │   │           ├── common  -- 通常工作类，如常量、枚举、解析器、拦截器等
     │   │           ├── config  -- redis,jedis 相关配置
     │   │           └── service  -- 业务层
     │   └── resources
+    │       ├── i18n  -- 国际化资源文件
     │       ├── application.yml  -- SpringBoot核心配置
     │       ├── mapper  -- Mybatis-Mapper层XML映射文件
     │       ├── static  -- 存放页面静态资源，可通过浏览器直接访问

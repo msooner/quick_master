@@ -1,22 +1,17 @@
 package com.ron.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.ron.common.constants.DigitConstant;
-import com.ron.common.constants.StringConsant;
-import com.ron.dto.ResponseResult;
 import com.ron.entity.SystemUser;
 import com.ron.mapper.SystemUserMapper;
 import com.ron.service.SystemUserService;
+import com.ron.utils.CookieUtil;
 import com.ron.utils.RedisUtil;
 import com.ron.utils.StringUtil;
-import org.apache.ibatis.annotations.Param;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -42,12 +37,14 @@ public class SystemUserServiceImpl implements SystemUserService {
      * @return
      */
     @Override
-    public SystemUser getUserInfo(String userCookie) {
-        if ("".equals(userCookie) || userCookie == null) {
+    public Object getUserInfo(String userCookie) {
+        if (StringUtils.isEmpty(userCookie)) {
             return null;
         }
         //从redis中获取用户信息
-        return (SystemUser) redisUtil.get(userCookie);
+        Object o = redisUtil.get(userCookie);
+
+        return o == null ? null : JSON.parseObject(o.toString(), SystemUser.class);
     }
 
     /**
@@ -59,8 +56,9 @@ public class SystemUserServiceImpl implements SystemUserService {
      */
     @Override
     public void setUserInfo(String userCacheKey, SystemUser systemUser, int cacheTime) {
-        if (userCacheKey != null && userCacheKey.length() > 0 && systemUser != null) {
-            redisUtil.set(userCacheKey, systemUser, cacheTime);
+        if (! StringUtils.isEmpty(userCacheKey) && systemUser.getId() > 0) {
+            String jsonUser = JSON.toJSONString(systemUser);
+            redisUtil.set(userCacheKey, jsonUser, cacheTime);
         }
     }
 
@@ -134,10 +132,10 @@ public class SystemUserServiceImpl implements SystemUserService {
      * @return
      */
     public boolean checkUserIsLogged(String userCookie) {
-        if ("".equals(userCookie) || userCookie == null) {
+        if (StringUtils.isEmpty(userCookie)) {
             return false;
         }
-        SystemUser systemUser = this.getUserInfo(userCookie);
+        SystemUser systemUser = (SystemUser) this.getUserInfo(userCookie);
         if (systemUser != null && systemUser.getId() > 0) {
             return true;
         }
@@ -154,7 +152,7 @@ public class SystemUserServiceImpl implements SystemUserService {
      */
     @Override
     public boolean checkRegisterSystemUser(String username, String email) {
-        if ("".equals(username) || "".equals(email)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(email)) {
             return false;
         }
         SystemUser systemUser = systemUsersMapper.checkRegisterSystemUser(username, email);
@@ -171,6 +169,16 @@ public class SystemUserServiceImpl implements SystemUserService {
         }
 
         return false;
+    }
+
+    @Override
+    public void logout(String userCookie) {
+        if (! StringUtils.isEmpty(userCookie)) {
+            //清除redis
+            redisUtil.deleteKey(userCookie);
+            //清除cookie
+            CookieUtil.removeCookie(userCookie);
+        }
     }
 
 }
