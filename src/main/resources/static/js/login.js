@@ -30,11 +30,12 @@ var Login = function () {
 				//自定义提示信息
 	            messages: {
 	                username: {
-	                    required: "#{login.agree}",
+	                    //required: i18n('login.loginRequired'),
+	                    required: "请输入用户名.",
                         minlength: "用户名必需由两个字母组成!"
 	                },
 	                password: {
-	                    required: "请求输入密码.",
+	                    required: "请输入密码.",
                         minlength: "用户名必需由两个字母组成!"
 	                }
 	            },

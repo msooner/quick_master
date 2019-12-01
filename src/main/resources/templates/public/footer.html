@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
 
-<div th:fragment="footer" class="footer">
-    <nav class="text-center">
+    <!-- BEGIN FOOTER -->
+    <div class="footer" th:fragment="footer">
         <div class="footer-inner">
-            <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
-                <span class="with-love">
-                                    <i class="fa fa-heartbeat"></i>
-                                </span>
-                <span class="author" itemprop="copyrightHolder">Ron</span>
-            </div>
-            <label>基于Spring Boot实现Java高并发之秒杀系统</label>
+            2019 &copy; QuickMaster 后台管理系统.
         </div>
-    </nav>
-</div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="icon-angle-up"></i>
+            </span>
+        </div>
+    </div>
+    <!-- END FOOTER -->
 
-</body>
+    </body>
 </html>
