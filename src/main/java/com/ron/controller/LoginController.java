@@ -88,7 +88,10 @@ public class LoginController {
         if (sysUser == null) {
             return new ResponseResult(DigitConstant.USER_NAME_NOT_EXIST, "", StringConsant.USER_NAME_NOT_EXIST);
         }
-
+        //验证用户信息是否被锁定
+        if (sysUser.getIsLocked() == 1) {
+            return new ResponseResult(DigitConstant.USER_IS_LOCKED, "", StringConsant.USER_IS_LOCKED);
+        }
         //缓存用户信息
         int cacheTime = DigitConstant.DEFAULT_CACHE_TIME;
         if (rememberMe == 1) {

@@ -13,6 +13,7 @@ public final class StringConsant {
     public static final String USERNAME_OR_PASSWORD_ERROR = "密码或密码错误!";
     public static final String ALREADY_LOGGED_ERROR = "请不要重复登录";
     public static final String SUCCESS_LOGED = "您已成功登录!";
+    public static final String USER_IS_LOCKED = "您的账户被锁定，请联系管理员修复!";
 
     //注册相关
     public static final String REPASSWORD_DIFFERENT = "两次输入的密码不同!";
@@ -31,6 +32,10 @@ public final class StringConsant {
     public static final String RESET_PASSWORD_ERROR = "重置密码非法!";
     public static final String RESET_PASSWORD_SUCCESS = "重置密码成功!";
     public static final String RESET_PASSWORD_FAIL = "重置密码失败!";
+
+    //管理员相关提示
+    public static final String ADD_ADMIN_SUCCESS = "管理员信息已成功添加!";
+    public static final String ADD_ADMIN_INFO_ERROR = "添加的管理员信息有误!";
 
     //加密salt
     public static final String PASSWORD_SALT = "hao123";

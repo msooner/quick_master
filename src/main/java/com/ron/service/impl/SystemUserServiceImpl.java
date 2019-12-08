@@ -67,7 +67,7 @@ public class SystemUserServiceImpl implements SystemUserService {
      */
     @Override
     public List<SystemUser> getAllUsers() {
-        return null;
+        return systemUsersMapper.getUsers();
     }
 
     @Override

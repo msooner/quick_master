@@ -20,17 +20,17 @@ public class SystemUser implements Serializable {
     private String email;
     private String createdBy;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createdDate;
 
     private String lastModifiedBy;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lastModifiedDate;
 
-    private String orgCode;
+    private String deptId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -104,12 +104,12 @@ public class SystemUser implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getOrgCode() {
-        return orgCode;
+    public String getDeptId() {
+        return deptId;
     }
 
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
     }
 
     public Date getCredentialExpiredDate() {
@@ -154,7 +154,7 @@ public class SystemUser implements Serializable {
                 ", createdDate=" + createdDate +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", lastModifiedDate=" + lastModifiedDate +
-                ", orgCode='" + orgCode + '\'' +
+                ", deptId='" + deptId + '\'' +
                 ", credentialExpiredDate=" + credentialExpiredDate +
                 ", isLocked=" + isLocked +
                 ", roleNames='" + roleNames + '\'' +
@@ -173,7 +173,7 @@ public class SystemUser implements Serializable {
         this.isLocked = isLocked;
     }
 
-    public SystemUser(Integer id, String password, String username, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, String orgCode, Date credentialExpiredDate, Byte isLocked, String roleNames, String roleIds) {
+    public SystemUser(Integer id, String password, String username, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, String deptId, Date credentialExpiredDate, Byte isLocked, String roleNames, String roleIds) {
         this.id = id;
         this.password = password;
         this.username = username;
@@ -181,7 +181,7 @@ public class SystemUser implements Serializable {
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
-        this.orgCode = orgCode;
+        this.deptId = deptId;
         this.credentialExpiredDate = credentialExpiredDate;
         this.isLocked = isLocked;
         this.roleNames = roleNames;

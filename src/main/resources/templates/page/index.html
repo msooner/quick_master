@@ -38,11 +38,11 @@
 		<!-- BEGIN CONTAINER -->
 		<div class="page-container">
 			<!-- BEGIN SIDEBAR -->
-			<div th:replace="public/menu :: menu"></div>
+			<div th:replace="public/menu :: menu('main')"></div>
 			<!-- END SIDEBAR -->
 
 			<!-- BEGIN PAGE -->
-			<div th:replace="public/content :: content"></div>
+			<div th:replace="page/index/content :: content"></div>
 			<!-- END PAGE -->
 		</div>
 		<!-- END CONTAINER -->

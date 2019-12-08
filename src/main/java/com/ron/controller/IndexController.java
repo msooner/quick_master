@@ -1,14 +1,11 @@
 package com.ron.controller;
 
-import com.ron.entity.SystemUser;
 import com.ron.service.SystemUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 后台首页逻辑
@@ -19,14 +16,15 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class IndexController {
 
-    @Autowired
-    private SystemUserService systemUserService;
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * 后台首页逻辑
+     *
+     * @return
+     */
     @RequestMapping("/admin")
-    public String index(@CookieValue(value = "user", required = false) String userCookie) {
-
+    public String index() {
 
         return "page/index";
     }

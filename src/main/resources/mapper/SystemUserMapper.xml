@@ -7,12 +7,16 @@
         select * from r_system_user where id = #{userId}
     </select>
     
+    <select id="getUsers" resultType="com.ron.entity.SystemUser">
+        select * from r_system_user
+    </select>
+    
     <select id="getUserByEmail" resultType="com.ron.entity.SystemUser">
         select id, username, email, role_names, role_ids from r_system_user where email = #{email}
     </select>
     
     <select id="getLoginUser" resultType="com.ron.entity.SystemUser">
-        select id, username, role_names, role_ids from r_system_user where username = #{username} and password = #{password}
+        select id, username, role_names, role_ids, is_locked, created_date, last_modified_date from r_system_user where username = #{username} and password = #{password}
     </select>
     
     <select id="checkRegisterSystemUser" resultType="com.ron.entity.SystemUser">
