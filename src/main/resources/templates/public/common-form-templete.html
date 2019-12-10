@@ -27,14 +27,6 @@
         <!-- END PAGE LEVEL STYLES -->
         <link rel="shortcut icon" th:href="@{../../image/favicon.ico}"/>
 
-        <style type="text/css">
-            .help-tip {
-                color: red;
-                font-style: italic;
-            }
-
-        </style>
-
     </head>
 
     <!-- END HEAD -->
@@ -101,80 +93,153 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="portlet_tab1">
                                                 <!-- BEGIN FORM-->
-                                                <form action="#" class="form-horizontal" method="post" id="addManagerForm">
+                                                <form action="#" class="form-horizontal">
                                                     <div class="control-group">
-                                                        <label class="control-label">用户名</label>
+                                                        <label class="control-label">Small Input</label>
                                                         <div class="controls">
-                                                            <input type="text" placeholder="用户名" class="m-wrap medium" name="username"/>
-                                                            <span class="help-inline help-tip">* 必填</span>
+                                                            <input type="text" placeholder="small" class="m-wrap small" />
+                                                            <span class="help-inline">Some hint here</span>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">密码</label>
+                                                        <label class="control-label">Meduam Input</label>
                                                         <div class="controls">
-                                                            <input type="text" placeholder="密码" class="m-wrap medium" name="password"/>
-                                                            <span class="help-inline help-tip">* 必填</span>
+                                                            <input type="text" placeholder="medium" class="m-wrap medium" />
+                                                            <span class="help-inline">Some hint here</span>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">重复密码</label>
+                                                        <label class="control-label">Large Input</label>
                                                         <div class="controls">
-                                                            <input type="text" placeholder="重复密码" class="m-wrap medium" name="rePassword"/>
-                                                            <span class="help-inline help-tip">* 必填</span>
+                                                            <input type="text" placeholder="large" class="m-wrap large" />
+                                                            <span class="help-inline">Some hint here</span>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">所属部门</label>
+                                                        <label class="control-label">Huge Input</label>
                                                         <div class="controls">
-                                                            <select class="medium m-wrap" tabindex="1" name="deptId">
-                                                                <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.departmentName}"></option>
+                                                            <input type="text" placeholder="huge" class="m-wrap huge" />
+                                                            <span class="help-inline">Some hint here</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Disabled Input</label>
+                                                        <div class="controls">
+                                                            <input class="m-wrap medium" type="text" placeholder="Disabled input here..." disabled />
+                                                            <span class="help-inline">Some hint here</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Readonly Input</label>
+                                                        <div class="controls">
+                                                            <input class="m-wrap medium" readonly type="text" placeholder="Readonly input here..." disabled />
+                                                            <span class="help-inline">Some hint here</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Small Dropdown</label>
+                                                        <div class="controls">
+                                                            <select class="small m-wrap" tabindex="1">
+                                                                <option value="Category 1">Category 1</option>
+                                                                <option value="Category 2">Category 2</option>
+                                                                <option value="Category 3">Category 5</option>
+                                                                <option value="Category 4">Category 4</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">用户角色</label>
+                                                        <label class="control-label">Medium Dropdown</label>
                                                         <div class="controls">
-                                                            <select class="medium m-wrap" tabindex="1" name="deptId">
-                                                                <option th:each="systemUserRole: ${systemUserRoles}" th:value="${systemUserRole.id}" th:text="${systemUserRole.roleName}"></option>
+                                                            <select class="medium m-wrap" tabindex="1">
+                                                                <option value="Category 1">Category 1</option>
+                                                                <option value="Category 2">Category 2</option>
+                                                                <option value="Category 3">Category 5</option>
+                                                                <option value="Category 4">Category 4</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">用户状态</label>
+                                                        <label class="control-label">Large Dropdown</label>
+                                                        <div class="controls">
+                                                            <select class="large m-wrap" tabindex="1">
+                                                                <option value="Category 1">Category 1</option>
+                                                                <option value="Category 2">Category 2</option>
+                                                                <option value="Category 3">Category 5</option>
+                                                                <option value="Category 4">Category 4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Radio Buttons</label>
                                                         <div class="controls">
                                                             <label class="radio">
-                                                                <input type="radio" name="optionsRadios1" value="1" checked/>
-                                                                锁定
+                                                                <input type="radio" name="optionsRadios1" value="option1" />
+                                                                Option 1
                                                             </label>
                                                             <label class="radio">
-                                                                <input type="radio" name="optionsRadios1" value="0"/>
-                                                                开放
+                                                                <input type="radio" name="optionsRadios1" value="option2" checked />
+                                                                Option 2
+                                                            </label>
+                                                            <label class="radio">
+                                                                <input type="radio" name="optionsRadios1" value="option2" />
+                                                                Option 3
                                                             </label>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">权限列表</label>
+                                                        <label class="control-label">Radio Buttons</label>
+                                                        <div class="controls">
+                                                            <label class="radio line">
+                                                                <input type="radio" name="optionsRadios2" value="option1" />
+                                                                Option 1
+                                                            </label>
+                                                            <label class="radio line">
+                                                                <input type="radio" name="optionsRadios2" value="option2" checked />
+                                                                Option 2
+                                                            </label>
+                                                            <label class="radio line">
+                                                                <input type="radio" name="optionsRadios2" value="option2" />
+                                                                Option 3
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Checkbox</label>
+                                                        <div class="controls">
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" value="" /> Checkbox 1
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" value="" /> Checkbox 2
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Checkbox</label>
                                                         <div class="controls">
                                                             <label class="checkbox line">
-                                                                <input type="checkbox" value="1" /> Checkbox 1
-                                                                <label class="checkbox line">
-                                                                    <input type="checkbox" value="" /> Checkbox 2
-                                                                    <input type="checkbox" value="" /> Checkbox 1
-                                                                    <input type="checkbox" value="" /> Checkbox 2
-                                                                </label>
+                                                                <input type="checkbox" value="" /> Checkbox 1
+                                                            </label>
+                                                            <label class="checkbox line">
+                                                                <input type="checkbox" value="" /> Checkbox 2
                                                             </label>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">操作人</label>
+                                                        <label class="control-label">Textarea</label>
                                                         <div class="controls">
-                                                            <input class="m-wrap medium" type="text" th:placeholder="${userInfo.username}" disabled th:value="${userInfo.username}"/>
-                                                            <span class="help-inline"></span>
+                                                            <textarea class="medium m-wrap" rows="3"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Large Textarea</label>
+                                                        <div class="controls">
+                                                            <textarea class="large m-wrap" rows="3"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-actions">
-                                                        <button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
-                                                        <button type="button" class="btn">取消</button>
+                                                        <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
+                                                        <button type="button" class="btn">Cancel</button>
                                                     </div>
                                                 </form>
                                                 <!-- END FORM-->

@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>管理员管理-Quick Master后台管理系统</title>
+        <title>部门管理-Quick Master后台管理系统</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -53,7 +53,7 @@
                         <div class="span12">
                             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                             <h3 class="page-title">
-                                系统用户管理
+                                部门管理
                             </h3>
                             <ul class="breadcrumb">
                                 <li>
@@ -110,10 +110,10 @@
                                                 <td class="center">[[${#dates.format(user.createdDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                                                 <td class="center">[[${#dates.format(user.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                                                 <td>
-                                                    <a th:href="@{/admin/admim-edit(userId=${user.id})}" class="btn mini purple" data-toggle="modal"><i class="icon-edit"></i>编辑</a>
+                                                    <a href="#" class="btn mini purple" data-toggle="modal"><i class="icon-edit"></i>编辑</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="btn mini black" th:data-uid="${user.id}"><i class="icon-trash"></i>删除</a>
+                                                    <a href="#myModal3" class="btn mini black" th:data-uid="${user.id}"><i class="icon-trash"></i>删除</a>
                                                 </td>
                                             </tr>
                                         </tbody>

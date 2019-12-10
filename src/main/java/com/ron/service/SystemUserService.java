@@ -10,25 +10,18 @@ import java.util.List;
 public interface SystemUserService {
 
     /**
-     * 业务接口：应该站在"使用者"的角度设计，比如：
-     * 1.定义方法的颗粒度要细
-     * 2.方法的参数要明确且简练，不建议用类似Map这种让使用者封装一堆参数传递过来
-     * 3.方法的return类型，除了要明确返回值类型，还应该指定该方法可能抛出的异常
-     */
-
-    /**
      * 从redis获取系统用户信息
      *
-     * @return
+     * @return Object
      */
     Object getUserInfo(String userCookie);
 
     /**
      * 缓存用户信息
      *
-     * @param userCacheKey
-     * @param systemUser
-     * @param cacheTime
+     * @param userCacheKey 缓存key
+     * @param systemUser 用户实体
+     * @param cacheTime 缓存时间
      */
     void setUserInfo(String userCacheKey, SystemUser systemUser, int cacheTime);
 
@@ -40,63 +33,85 @@ public interface SystemUserService {
     /**
      * 查询某个用户信息
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return SystemUser
      */
     SystemUser getUserById(int userId);
 
     /**
      * 获取登录用户信息
      *
-     * @param username
-     * @param password
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @return SystemUser
      */
     SystemUser getLoginUser(String username, String password);
 
     /**
      * 用户注册
-     *
-     * @return
      */
     void registerUser(SystemUser systemUser);
 
     /**
      * 添加用户信息
      *
-     * @param user
-     * @return
+     * @param user 用户实体
      */
     void addUser(SystemUser user);
 
     /**
-     * 删除用户信息
+     * 检测需要存储的用户信息是否合法
      *
-     * @param userId
+     * @param user 用户实体
      * @return
      */
-    void deleteUser(Integer userId);
+    boolean checkSaveUser(SystemUser user);
+
+    /**
+     * 删除用户信息
+     *
+     * @param userId 用户id
+     */
+    int deleteUser(Integer userId);
 
     /**
      * 编辑用户信息
      *
-     * @param user
-     * @return
+     * @param user 用户实体
      */
     void editUser(SystemUser user);
 
+    /**
+     * 检测用户是否已经登录
+     *
+     * @param userCookie 用户cookie
+     * @return boolean
+     */
     boolean checkUserIsLogged(String userCookie);
 
     /**
      * 检测用户是否已经存在
      *
-     * @param username
-     * @param email
-     * @return
+     * @param username 用户名
+     * @param email 邮箱
+     * @return boolean
      */
     boolean checkRegisterSystemUser(String username, String email);
 
+    /**
+     * 找回密码更新
+     *
+     * @param username 用户名
+     * @param email 邮箱
+     * @param password 密码
+     * @return boolean
+     */
     boolean updateForgotPassword(String username, String email, String password);
 
+    /**
+     * 用户登出
+     *
+     * @param userCookie 用户cookie
+     */
     void logout(String userCookie);
 }

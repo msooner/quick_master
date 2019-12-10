@@ -34,6 +34,10 @@ public final class DigitConstant {
     public static final int ADD_ADMIN_SUCCESS = 0;
     public static final int ADD_ADMIN_INFO_ERROR = 1;
 
+    public static final int DELETE_ADMIN_INFO_SUCCESS = 0;
+    public static final int DELETE_CURRENT_USER_ERROR = 1;
+    public static final int DELETE_ADMIN_INFO_FAIL = 2;
+
     //缓存时间
     public static final int DEFAULT_CACHE_TIME = 1800; //半个小时
     public static final int REMEMBER_ME_CACHE_TIME = 86400; //一天

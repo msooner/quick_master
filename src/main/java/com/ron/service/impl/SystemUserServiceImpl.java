@@ -6,7 +6,6 @@ import com.ron.mapper.SystemUserMapper;
 import com.ron.service.SystemUserService;
 import com.ron.utils.CookieUtil;
 import com.ron.utils.RedisUtil;
-import com.ron.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +102,26 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     }
 
+    @Override
+    public boolean checkSaveUser(SystemUser user) {
+        if (user == null) {
+            return false;
+        }
+        //检测用户名
+        if ("".equals(user.getUsername()) || user.getUsername() == null) {
+            return false;
+        }
+        //检测密码
+        if ("".equals(user.getPassword()) || user.getPassword() == null) {
+            return false;
+        }
+//        if ("".equals(user.getRePassword()) || user.getPassword() == null) {
+//            return false;
+//        }
+
+        return true;
+    }
+
     /**
      * 删除用户信息
      *
@@ -110,8 +129,12 @@ public class SystemUserServiceImpl implements SystemUserService {
      * @return
      */
     @Override
-    public void deleteUser(Integer userId) {
+    public int deleteUser(Integer userId) {
+        if (userId == null || userId <= 0) {
+            return 0;
+        }
 
+        return systemUsersMapper.deleteUser(userId);
     }
 
     /**

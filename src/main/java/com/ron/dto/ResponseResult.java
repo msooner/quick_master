@@ -47,7 +47,7 @@ public class ResponseResult<T> {
     @Override
     public String toString() {
         return "ResponseResult{" +
-                "massage=" + message +
+                "message=" + message +
                 ", data=" + data +
                 ", code=" + code +
                 '}';

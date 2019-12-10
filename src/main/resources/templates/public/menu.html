@@ -35,12 +35,26 @@
                 <li th:class="${active == 'admin' ? 'active' : ''}">
                     <a th:href="@{/admin/admin-manager}">
                         <i class="icon-group"></i>
-                        <span class="title">系统管理员</span>
+                        <span class="title">系统用户管理</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li th:class="${active == 'role' ? 'start' : ''}">
+                    <a th:href="@{/admin/role-manager}">
+                        <i class="icon-key"></i>
+                        <span class="title">权限管理</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li th:class="${active == 'department' ? 'start' : ''}">
+                    <a th:href="@{/admin/department-manager}">
+                        <i class="icon-cogs"></i>
+                        <span class="title">部门管理</span>
                         <span class="selected"></span>
                     </a>
                 </li>
                 <li th:class="${active == 'user' ? 'start' : ''}">
-                    <a th:href="@{/admin-manager}">
+                    <a th:href="@{/admin/user-manager}">
                         <i class="icon-user"></i>
                         <span class="title">会员管理</span>
                         <span class="selected"></span>

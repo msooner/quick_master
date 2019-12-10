@@ -131,14 +131,38 @@ var TableEditable = function () {
             //         nEditing = nRow;
             //     }
             // });
-            $("#addManager").live("click", function(e) {
-                window.location.href = "/admin/";
+
+            //添加管理员跳转管理员页面
+            $("#sample_editable_1_new").live("click", function(e) {
+                window.location.href = "/admin/addManager";
 
             });
 
-            $("#confirmDelete").live("click", function(e){
-                var userId = $("#confirmDelete").attr("data-uid");
-                alert(userId);
+            //点击删除按键操作
+            $(".portlet-body table td a").live("click", function(e){
+                if (confirm("确定要删除吗？")) {
+                    var userId = $(this).attr("data-uid");
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/delete-admin",
+                        data: {
+                            userId: userId
+                        },
+                        success: function (data) {
+                            if(data.code ==0) {
+                                window.location.href = "/admin/admin-manager";
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        error: function() {
+                            console.log('删除用户失败!');
+                        }
+                    });
+                } else {
+                    return false;
+                }
+                return false;
             });
         }
     };
