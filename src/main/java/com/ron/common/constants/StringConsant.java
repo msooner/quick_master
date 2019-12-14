@@ -41,6 +41,18 @@ public final class StringConsant {
     public static final String  DELETE_ADMIN_INFO_FAIL = "删除管理员信息失败!";
     public static final String  DELETE_CURRENT_USER_ERROR = "不能删除当前用户!";
 
+    //部门相关
+    public static final String DELETE_DEPARTMENT_SUCCESS = "成功删除部门信息!";
+    public static final String DELETE_DEPARTMENT_FAIL = "删除部门信息失败!";
+    public static final String ADD_DEPARTMENT_SUCCESS = "成功添加部门信息!";
+    public static final String ADD_DEPARTMENT_FAIL = "服务端错误,添加部门信息失败!";
+    public static final String EDIT_DEPARTMENT_SUCCESS = "成功编辑部门信息!";
+    public static final String EDIT_DEPARTMENT_FAIL = "服务端错误, 编辑部门信息失败!";
+    public static final String EDIT_DEPARTMENT_INFO_ERROR = "部门编辑信息有误";
+    public static final String ADD_DEPARTMENT_INFO_ERROR = "部门信息有误!";
+    public static final String DEPARTMENT_INFO_ISEXISTS = "部门信息已经存在!";
+    public static final String DEPARTMENT_INFO_NOT_EXISTS = "部门信息不存在!";
+
     //加密salt
     public static final String PASSWORD_SALT = "hao123";
 

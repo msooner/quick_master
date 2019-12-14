@@ -1,6 +1,7 @@
 package com.ron.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class SystemUserDepartment implements Serializable{
 
@@ -8,6 +9,8 @@ public class SystemUserDepartment implements Serializable{
     private String departmentName;
     private Integer parentId;
     private String createBy;
+    private Date createTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -37,6 +40,22 @@ public class SystemUserDepartment implements Serializable{
         return createBy;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
@@ -57,6 +76,8 @@ public class SystemUserDepartment implements Serializable{
                 ", departmentName='" + departmentName + '\'' +
                 ", parentId=" + parentId +
                 ", createBy='" + createBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

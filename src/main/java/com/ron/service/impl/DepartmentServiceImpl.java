@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  * @date 2019/10/6
  */
 @Service
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -31,6 +32,21 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public List<SystemUserDepartment> getDepartmentList() {
         return systemDepartmentMapper.getDepartmentList();
+    }
+
+    /**
+     * 查询子部门
+     *
+     * @param parentId 父级部门ID
+     * @return List
+     */
+    @Override
+    public List<SystemUserDepartment> getChildDepartmentList(Integer parentId) {
+        if (parentId == null || parentId < 0) {
+            return new ArrayList<>();
+        }
+
+        return systemDepartmentMapper.getChildDepartmentList(parentId);
     }
 
     /**
@@ -55,7 +71,8 @@ public class DepartmentServiceImpl implements DepartmentService{
      */
     @Override
     public boolean addDepartment(SystemUserDepartment systemUserDepartment) {
-        if (systemUserDepartment == null || systemUserDepartment.getDepartmentName() == null || systemUserDepartment.getParentId() == null) {
+        if (StringUtils.isEmpty(systemUserDepartment.getDepartmentName()) || StringUtils.isEmpty(systemUserDepartment.getParentId())
+                || StringUtils.isEmpty(systemUserDepartment.getParentId())) {
             return false;
         }
         int addResult = systemDepartmentMapper.addDepartment(systemUserDepartment);
@@ -77,6 +94,24 @@ public class DepartmentServiceImpl implements DepartmentService{
             return false;
         }
         int deleteResult = systemDepartmentMapper.deleteDepartment(departmentId);
+        if (deleteResult <= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 删除下级部门信息
+     *
+     * @param parentId 上级部门id
+     * @return boolean
+     */
+    @Override
+    public boolean deleteChildDepartment(Integer parentId) {
+        if (parentId == null || parentId <= 0) {
+            return false;
+        }
+        int deleteResult = systemDepartmentMapper.deleteChildDepartment(parentId);
         if (deleteResult <= 0) {
             return false;
         }
@@ -111,13 +146,13 @@ public class DepartmentServiceImpl implements DepartmentService{
      */
     @Override
     public boolean checkDepartmentIsExists(String departmentName, Integer parentId) {
-        if (StringUtils.isEmpty(departmentName) || parentId == null || parentId <= 0) {
+        if (StringUtils.isEmpty(departmentName) || parentId == null || parentId < 0) {
             return false;
         }
         SystemUserDepartment systemUserDepartment = systemDepartmentMapper.checkDepartment(departmentName, parentId);
-        if (systemUserDepartment.getId() > 0) {
-            return false;
+        if (systemUserDepartment != null && systemUserDepartment.getId() > 0) {
+            return true;
         }
-        return true;
+        return false;
     }
 }

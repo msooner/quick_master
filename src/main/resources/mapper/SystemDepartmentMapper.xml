@@ -7,24 +7,32 @@
         select * from r_system_department where id = #{departmentId}
     </select>
     
-    <select id="getDepartmentList" resultType="java.util.List">
+    <select id="getChildDepartment" resultType="com.ron.entity.SystemUserDepartment">
+        select * from r_system_department where parent_id = #{parentId}
+    </select>
+    
+    <select id="getDepartmentList" resultType="com.ron.entity.SystemUserDepartment">
         select * from r_system_department
     </select>
     
-    <select id="checkDepartment">
+    <select id="checkDepartment" resultType="com.ron.entity.SystemUserDepartment">
         select id from r_system_department where department_name = #{departmentName} and parent_id = #{parentId}
     </select>
     
     <insert id="addDepartment" useGeneratedKeys="true" keyProperty="id" parameterType="com.ron.entity.SystemUserDepartment">
         insert into r_system_department(department_name, parent_id, create_by)
-        values (#{departmentName}, #{parentId}, #{createdBy})
+        values (#{departmentName}, #{parentId}, #{createBy})
     </insert>
     
     <delete id="deleteDepartment" flushCache="true" statementType="PREPARED" timeout="20">
         delete from r_system_department where id = #{departmentId}
     </delete>
     
+    <delete id="deleteChildDepartment" flushCache="true" statementType="PREPARED" timeout="20">
+      delete from r_system_department where parent_id = ${parentId}
+    </delete>
+    
     <update id="editDepartment" flushCache="true" statementType="PREPARED" timeout="20">
-        update r_system_department set department_name = #{departmentName} where parent_id = #{parentId} and create_by = #{createdBy}
+        update r_system_department set department_name = #{departmentName}, parent_id = #{parentId}, create_by = #{createBy} where id = #{id}
     </update>
 </mapper>

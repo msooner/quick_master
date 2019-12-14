@@ -24,6 +24,14 @@ public interface DepartmentService {
     List<SystemUserDepartment> getDepartmentList();
 
     /**
+     * 查询子部门
+     *
+     * @param parentId 父级部门ID
+     * @return List
+     */
+    List<SystemUserDepartment> getChildDepartmentList(Integer parentId);
+
+    /**
      * 查询某个部门信息
      *
      * @param departmentId
@@ -47,6 +55,14 @@ public interface DepartmentService {
      * @return boolean
      */
     boolean deleteDepartment(Integer departmentId);
+
+    /**
+     * 删除下级部门信息
+     *
+     * @param parentId 上级部门id
+     * @return boolean
+     */
+    boolean deleteChildDepartment(Integer parentId);
 
     /**
      * 编辑部门信息

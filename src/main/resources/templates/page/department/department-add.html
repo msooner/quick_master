@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>管理员管理-Quick Master后台管理系统</title>
+        <title>添加部门信息-Quick Master后台管理系统</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -49,7 +49,7 @@
         <div class="page-container row-fluid">
 
             <!-- BEGIN SIDEBAR -->
-            <div th:replace="public/menu :: menu('admin')"></div>
+            <div th:replace="public/menu :: menu('department')"></div>
             <!-- END SIDEBAR -->
 
             <!-- BEGIN PAGE -->
@@ -61,7 +61,7 @@
                         <div class="span12">
                             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                             <h3 class="page-title">
-                                添加系统用户
+                                添加部门信息
                             </h3>
                             <ul class="breadcrumb">
                                 <li>
@@ -70,11 +70,11 @@
                                     <i class="icon-angle-right"></i>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin/admin-manager}">系统用户管理</a>
+                                    <a th:href="@{/admin/department-manager}">部门管理</a>
                                     <i class="icon-angle-right"></i>
                                 </li>
                                 <li>
-                                    <a href="#">添加系统用户</a>
+                                    <a href="#">添加部门信息</a>
                                 </li>
                             </ul>
                             <!-- END PAGE TITLE & BREADCRUMB-->
@@ -90,7 +90,7 @@
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-reorder"></i>
-                                        <span class="hidden-480">添加管理员</span>
+                                        <span class="hidden-480">添加部门</span>
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
@@ -101,80 +101,37 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="portlet_tab1">
                                                 <!-- BEGIN FORM-->
-                                                <form action="#" class="form-horizontal" method="post" id="addManagerForm">
-                                                    <div class="control-group">
-                                                        <label class="control-label">用户名</label>
-                                                        <div class="controls">
-                                                            <input type="text" placeholder="用户名" class="m-wrap medium" name="username"/>
-                                                            <span class="help-inline help-tip">* 必填</span>
-                                                        </div>
+                                                <form action="#" class="form-horizontal" method="post">
+                                                    <div class="alert alert-error hide" id="show-error">
+                                                        <button class="close" data-dismiss="alert"></button>
+                                                        <span></span>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">密码</label>
+                                                        <label class="control-label">部门名称</label>
                                                         <div class="controls">
-                                                            <input type="text" placeholder="密码" class="m-wrap medium" name="password"/>
-                                                            <span class="help-inline help-tip">* 必填</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">重复密码</label>
-                                                        <div class="controls">
-                                                            <input type="text" placeholder="重复密码" class="m-wrap medium" name="rePassword"/>
+                                                            <input type="text" placeholder="部门名称" class="m-wrap medium" name="departmentName" id="departmentName"/>
                                                             <span class="help-inline help-tip">* 必填</span>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
                                                         <label class="control-label">所属部门</label>
                                                         <div class="controls">
-                                                            <select class="medium m-wrap" tabindex="1" name="deptId">
-                                                                <option th:if="${#lists.isEmpty(departments)}" th:value="0" th:text="请先添加部门信息"></option>
-                                                                <option th:if="${not #lists.isEmpty(departments)}"  th:each="department: ${departments}" th:value="${department.id}" th:text="${department.departmentName}"></option>
+                                                            <select class="medium m-wrap" tabindex="1" name="parentId" id="parentId">
+                                                                <option value="0">无上级部门</option>
+                                                                <option th:if="${not #lists.isEmpty(departments)}" th:each="department: ${departments}" th:value="${department.id}" th:text="${department.departmentName}"></option>
                                                             </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">用户角色</label>
-                                                        <div class="controls">
-                                                            <select class="medium m-wrap" tabindex="1" name="deptId">
-                                                                <option th:each="systemUserRole: ${systemUserRoles}" th:value="${systemUserRole.id}" th:text="${systemUserRole.roleName}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">用户状态</label>
-                                                        <div class="controls">
-                                                            <label class="radio">
-                                                                <input type="radio" name="optionsRadios1" value="1" checked/>
-                                                                锁定
-                                                            </label>
-                                                            <label class="radio">
-                                                                <input type="radio" name="optionsRadios1" value="0"/>
-                                                                开放
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">权限列表</label>
-                                                        <div class="controls">
-                                                            <label class="checkbox line">
-                                                                <input type="checkbox" value="1" /> Checkbox 1
-                                                                <label class="checkbox line">
-                                                                    <input type="checkbox" value="" /> Checkbox 2
-                                                                    <input type="checkbox" value="" /> Checkbox 1
-                                                                    <input type="checkbox" value="" /> Checkbox 2
-                                                                </label>
-                                                            </label>
+                                                            <span class="help-inline help-tip">* 默认为一级部门</span>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
                                                         <label class="control-label">操作人</label>
                                                         <div class="controls">
-                                                            <input class="m-wrap medium" type="text" th:placeholder="${userInfo.username}" disabled th:value="${userInfo.username}"/>
+                                                            <input class="m-wrap medium" type="text" th:placeholder="${systemUser.username}" disabled th:value="${systemUser.username}" name="createBy" id="createBy"/>
                                                             <span class="help-inline"></span>
                                                         </div>
                                                     </div>
                                                     <div class="form-actions">
-                                                        <button type="submit" class="btn blue"><i class="icon-ok"></i>保存</button>
+                                                        <button type="submit" class="btn blue" id="addDepartmentForm"><i class="icon-ok"></i>保存</button>
                                                         <button type="button" class="btn">取消</button>
                                                     </div>
                                                 </form>
@@ -186,7 +143,6 @@
                             </div>
                             <!-- END SAMPLE FORM PORTLET-->
                         </div>
-
                     </div>
                     <!-- END PAGE CONTENT-->
 
@@ -220,12 +176,53 @@
         <script th:src="@{../../js/jquery.blockui.min.js}" type="text/javascript"></script>
         <script th:src="@{../../js/jquery.cookie.min.js}" type="text/javascript"></script>
         <script th:src="@{../../js/jquery.uniform.min.js}" type="text/javascript" ></script>
+        <script th:src="@{../../js/department.js}"></script>
         <!-- END CORE PLUGINS -->
         <script th:src="@{../../js/app.js}" ></script>
 
         <script>
             jQuery(document).ready(function() {
                 App.init();
+                //添加保存部门信息
+                $("#addDepartmentForm").click(function(){
+                    var parentName = $("#parentId>option").html();
+                    var departmentName = $("#departmentName").val();
+                    //检验部门名称是否为空
+                    if (departmentName.length == 0 || departmentName == undefined) {
+                        showError('部门名称不能为空!');
+                        return false;
+                    }
+                    if (parentName != "无上级部门" && departmentName == parentName) {
+                        showError('部门名称不能和上级部门相同!');
+                        return false;
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/add-department-result",
+                        data: {
+                            departmentName: departmentName,
+                            parentId: $("#parentId").val(),
+                            createBy: $("#createBy").val()
+                        },
+                        success: function(data) {
+                            if (data.code != 0) {
+                                showError(data.message);
+                                return false;
+                            }
+                            alert("部门信息添加成功!");
+                            window.location.href = "/admin/department-manager";
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+
+                    return false;
+                });
+                var showError = function(message) {
+                    $("#show-error").removeClass("hide");
+                    $("#show-error>span").html(message);
+                }
             });
         </script>
 

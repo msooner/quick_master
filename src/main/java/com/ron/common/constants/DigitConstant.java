@@ -38,6 +38,18 @@ public final class DigitConstant {
     public static final int DELETE_CURRENT_USER_ERROR = 1;
     public static final int DELETE_ADMIN_INFO_FAIL = 2;
 
+    //部门相关
+    public static final int DELETE_DEPARTMENT_SUCCESS = 0;
+    public static final int DELETE_DEPARTMENT_FAIL = 1;
+    public static final int ADD_DEPARTMENT_SUCCESS = 0;
+    public static final int ADD_DEPARTMENT_INFO_ERROR = 2;
+    public static final int DEPARTMENT_INFO_ISEXISTS = 3;
+    public static final int ADD_DEPARTMENT_FAIL = 1;
+    public static final int EDIT_DEPARTMENT_SUCCESS = 0;
+    public static final int EDIT_DEPARTMENT_INFO_ERROR = 2;
+    public static final int DEPARTMENT_INFO_NOT_EXISTS = 3;
+    public static final int EDIT_DEPARTMENT_FAIL = 1;
+
     //缓存时间
     public static final int DEFAULT_CACHE_TIME = 1800; //半个小时
     public static final int REMEMBER_ME_CACHE_TIME = 86400; //一天

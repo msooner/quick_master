@@ -6,6 +6,7 @@ import com.ron.dto.ResponseResult;
 import com.ron.entity.SystemUser;
 import com.ron.entity.SystemUserDepartment;
 import com.ron.entity.SystemUserRole;
+import com.ron.service.DepartmentService;
 import com.ron.service.SystemUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,9 @@ public class AdministratorController {
 
     @Autowired
     SystemUserService systemUserService;
+
+    @Autowired
+    DepartmentService departmentService;
 
     /**
      * 后台首页逻辑
@@ -69,11 +73,8 @@ public class AdministratorController {
         //获取用户信息
         SystemUser systemUser = (SystemUser) systemUserService.getUserInfo(userCookie);
         //用户所属部门(测试数据)
-        List<SystemUserDepartment> departments = new ArrayList();
-        departments.add(new SystemUserDepartment(1, "运营部", 0, "admin1"));
-        departments.add(new SystemUserDepartment(2, "客服部", 0, "admin2"));
-        departments.add(new SystemUserDepartment(3, "技术部", 0, "admin3"));
-        departments.add(new SystemUserDepartment(4, "运维部", 0, "admin1"));
+        List<SystemUserDepartment> systemUserDepartments = departmentService.getDepartmentList();
+
         //用户角色
         List<SystemUserRole> systemUserRoles = new ArrayList();
         systemUserRoles.add(new SystemUserRole(1, "超级管理员", 0, "admin1"));
@@ -83,7 +84,7 @@ public class AdministratorController {
         //List<>
 
         model.addAttribute("userInfo", systemUser);
-        model.addAttribute("departments", departments);
+        model.addAttribute("departments", systemUserDepartments);
         model.addAttribute("systemUserRoles", systemUserRoles);
         model.addAttribute("action", "add");
 
@@ -96,7 +97,7 @@ public class AdministratorController {
      * @param systemUser 管理员实体
      * @return ResponseResult
      */
-    @RequestMapping("/admin/add-manager-info")
+    @RequestMapping("/admin/add-manager-result")
     public ResponseResult addManagerInfo(SystemUser systemUser) {
         if (systemUser == null || systemUser.getUsername() == null) {
             return new ResponseResult(DigitConstant.ADD_ADMIN_INFO_ERROR, "", StringConsant.ADD_ADMIN_INFO_ERROR);
