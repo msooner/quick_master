@@ -12,5 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class RoleController {
 
+    /**
+     * 角色管理
+     *
+     * @return String
+     */
+    @RequestMapping("/admin/role-manager")
+    public String roleManager() {
 
+        return "page/role/role-index";
+    }
 }
