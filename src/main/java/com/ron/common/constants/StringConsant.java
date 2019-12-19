@@ -53,6 +53,28 @@ public final class StringConsant {
     public static final String DEPARTMENT_INFO_ISEXISTS = "部门信息已经存在!";
     public static final String DEPARTMENT_INFO_NOT_EXISTS = "部门信息不存在!";
 
+    //角色相关
+    public static final String ADD_ROLE_SUCCESS = "成功添加角色信息!";
+    public static final String ADD_ROLE_INFO_ERROR = "角色信息有误!";
+    public static final String ROLE_INFO_IS_EXISTS = "角色信息已经存在!";
+    public static final String ADD_ROLE_FAIL = "服务端错误,添加角色信息失败!";
+    public static final String GET_ROLE_LIST_SUCCESS = "成功获取角色列表信息!";
+    public static final String DELETE_ROLE_SUCCESS = "成功删除角色信息!";
+    public static final String DELETE_ROLE_FAIL = "删除角色信息失败!";
+
+    //模块相关
+    public static final String ADD_MODULE_SUCCESS = "成功添加模块信息!";
+    public static final String ADD_MODULE_INFO_ERROR = "模块信息有误!";
+    public static final String MODULE_INFO_IS_EXISTS = "模块信息已经存在!";
+    public static final String MODULE_INFO_NOT_EXISTS = "模块信息不存在!";
+    public static final String ADD_MODULE_FAIL = "服务端错误,添加模块信息失败!";
+    public static final String GET_MODULE_LIST_SUCCESS = "成功获取模块列表信息!";
+    public static final String DELETE_MODULE_SUCCESS = "成功删除模块信息!";
+    public static final String DELETE_MODULE_FAIL = "删除模块信息失败!";
+
+    //参数相关
+    public static final String REQUEST_PARAMETER_ERROR = "请求参数有误!";
+
     //加密salt
     public static final String PASSWORD_SALT = "hao123";
 

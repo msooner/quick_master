@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ron.mapper.SystemModuleMapper">
+    <select id="getModule" resultType="com.ron.entity.SystemModule">
+        select * from r_system_module where id = #{moduleId}
+    </select>
+    
+    <select id="getChildModule" resultType="com.ron.entity.SystemModule">
+        select * from r_system_module where parent_id = #{parentId}
+    </select>
+    
+    <!--获取所有角色列表-->
+    <select id="getAllModuleList" resultType="com.ron.entity.SystemModule">
+        select * from r_system_module
+    </select>
+    
+    <!--获取一级角色列表-->
+    <select id="getModuleList" resultType="com.ron.entity.SystemModule">
+        select * from r_system_module where parent_id = 0
+    </select>
+    
+    <!--获取二级角色列表-->
+    <select id="getChildModuleList" resultType="com.ron.entity.SystemModule">
+        select * from r_system_module where parent_id = #{parentId}
+    </select>
+    
+    <select id="checkModule" resultType="com.ron.entity.SystemModule">
+        select id from r_system_module where module_name = #{moduleName} and parent_id = #{parentId}
+    </select>
+    
+    <insert id="addModule" useGeneratedKeys="true" keyProperty="id" parameterType="com.ron.entity.SystemModule">
+        insert into r_system_module(module_name, module_url, parent_id, create_by)
+        values (#{moduleName}, #{moduleUrl}, #{parentId}, #{createBy})
+    </insert>
+    
+    <delete id="deleteModule" flushCache="true" statementType="PREPARED" timeout="20">
+        delete from r_system_module where id = #{moduleId}
+    </delete>
+    
+    <delete id="deleteChildModule" flushCache="true" statementType="PREPARED" timeout="20">
+      delete from r_system_module where parent_id = ${parentId}
+    </delete>
+    
+    <update id="editModule" flushCache="true" statementType="PREPARED" timeout="20">
+        update r_system_module set module_name = #{moduleName}, module_url = #{moduleUrl}, parent_id = #{parentId}, create_by = #{createBy} where id = #{id}
+    </update>
+</mapper>

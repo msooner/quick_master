@@ -50,6 +50,28 @@ public final class DigitConstant {
     public static final int DEPARTMENT_INFO_NOT_EXISTS = 3;
     public static final int EDIT_DEPARTMENT_FAIL = 1;
 
+    //角色相关
+    public static final int ADD_ROLE_SUCCESS = 0;
+    public static final int ADD_ROLE_INFO_ERROR = 1;
+    public static final int ROLE_INFO_IS_EXISTS = 2;
+    public static final int ADD_ROLE_FAIL = 3;
+    public static final int GET_ROLE_LIST_SUCCESS = 0;
+    public static final int DELETE_ROLE_SUCCESS = 0;
+    public static final int DELETE_ROLE_FAIL = 2;
+
+    //模块相关
+    public static final int ADD_MODULE_SUCCESS = 0;
+    public static final int ADD_MODULE_INFO_ERROR = 1;
+    public static final int MODULE_INFO_IS_EXISTS = 2;
+    public static final int ADD_MODULE_FAIL = 3;
+    public static final int GET_MODULE_LIST_SUCCESS = 0;
+    public static final int DELETE_MODULE_SUCCESS = 0;
+    public static final int DELETE_MODULE_FAIL = 2;
+    public static final int MODULE_INFO_NOT_EXISTS = 3;
+
+    //参数相关
+    public static final int REQUEST_PARAMETER_ERROR = 9;
+
     //缓存时间
     public static final int DEFAULT_CACHE_TIME = 1800; //半个小时
     public static final int REMEMBER_ME_CACHE_TIME = 86400; //一天

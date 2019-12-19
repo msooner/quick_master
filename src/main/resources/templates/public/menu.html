@@ -39,10 +39,17 @@
                         <span class="selected"></span>
                     </a>
                 </li>
-                <li th:class="${active == 'role' ? 'start' : ''}">
+                <li th:class="${active == 'role' ? 'start active' : ''}">
                     <a th:href="@{/admin/role-manager}">
                         <i class="icon-key"></i>
-                        <span class="title">权限管理</span>
+                        <span class="title">角色权限管理</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li th:class="${active == 'module' ? 'start active' : ''}">
+                    <a th:href="@{/admin/module-manager}">
+                        <i class="icon-th-large"></i>
+                        <span class="title">系统模块管理</span>
                         <span class="selected"></span>
                     </a>
                 </li>

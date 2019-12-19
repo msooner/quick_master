@@ -114,7 +114,6 @@ public class DepartmentController {
     @ResponseBody
     @RequestMapping("/admin/add-department-result")
     public ResponseResult addDepartmentResult(SystemUserDepartment systemUserDepartment) {
-        System.out.println(systemUserDepartment);
         //检测需要添加的部门信息
         if (StringUtils.isEmpty(systemUserDepartment.getParentId()) || StringUtils.isEmpty(systemUserDepartment.getDepartmentName())
                 || StringUtils.isEmpty(systemUserDepartment.getCreateBy())) {
