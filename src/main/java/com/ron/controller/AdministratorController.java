@@ -7,6 +7,7 @@ import com.ron.entity.SystemUser;
 import com.ron.entity.SystemUserDepartment;
 import com.ron.entity.SystemUserRole;
 import com.ron.service.DepartmentService;
+import com.ron.service.RoleService;
 import com.ron.service.SystemUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,9 @@ public class AdministratorController {
 
     @Autowired
     DepartmentService departmentService;
+
+    @Autowired
+    RoleService roleService;
 
     /**
      * 后台首页逻辑
@@ -76,12 +81,7 @@ public class AdministratorController {
         List<SystemUserDepartment> systemUserDepartments = departmentService.getDepartmentList();
 
         //用户角色
-        List<SystemUserRole> systemUserRoles = new ArrayList();
-        systemUserRoles.add(new SystemUserRole(1, "超级管理员", 0, "admin1"));
-        systemUserRoles.add(new SystemUserRole(2, "系统管理员", 0, "admin1"));
-        systemUserRoles.add(new SystemUserRole(3, "普通用户", 0, "admin1"));
-        //所有权限列表
-        //List<>
+        List<SystemUserRole> systemUserRoles = roleService.getAllChildRoleList();
 
         model.addAttribute("userInfo", systemUser);
         model.addAttribute("departments", systemUserDepartments);
@@ -124,8 +124,6 @@ public class AdministratorController {
         if (systemUser.getId() == userId) {
             return new ResponseResult(DigitConstant.DELETE_CURRENT_USER_ERROR, userId, StringConsant.DELETE_CURRENT_USER_ERROR);
         }
-        //验证用户是否有删除权限
-
         //删除失败
         if (systemUserService.deleteUser(userId) <= 0) {
             return new ResponseResult(DigitConstant.DELETE_ADMIN_INFO_FAIL, userId, StringConsant.DELETE_ADMIN_INFO_FAIL);

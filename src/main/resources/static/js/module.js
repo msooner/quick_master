@@ -167,32 +167,3 @@ var showError = function(message) {
     $("#show-error").removeClass("hide");
     $("#show-error>span").html(message);
 };
-
-//级联获取二级角色
-$("#roleIds").change(function() {
-    $("#parentId").empty();
-    var parentId = $("#roleIds").val();
-    //获取下级子角色
-    $.ajax({
-        type: "post",
-        url: "/admin/get-child-module-list",
-        data: {
-            parentId: parentId
-        },
-        success: function (data) {
-            if (data.code != 0) {
-                showError(data.message);
-            }
-            if (data.data.length > 0) {
-                for(var i = 0; i < data.data.length; i++) {
-                    $("#parentId").append($("<option value=" + data.data[i].id + ">" + data.data[i].roleName +  "</option>"));
-                }
-            } else {
-                $("#parentId").append($("<option value="+ $('#roleIds').val() +">无上级角色分类</option>"));
-            }
-        },
-        error: function (data) {
-            showError(data);
-        }
-    });
-});

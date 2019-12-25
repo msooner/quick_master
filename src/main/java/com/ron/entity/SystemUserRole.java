@@ -77,6 +77,14 @@ public class SystemUserRole implements Serializable {
         this.createBy = createBy;
     }
 
+    public SystemUserRole(Integer id, String roleName, String moduleIds, int parentId, String createBy) {
+        this.id = id;
+        this.moduleIds = moduleIds;
+        this.roleName = roleName;
+        this.parentId = parentId;
+        this.createBy = createBy;
+    }
+
     public SystemUserRole() {
     }
 
@@ -86,7 +94,10 @@ public class SystemUserRole implements Serializable {
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 ", parentId=" + parentId +
+                ", moduleIds='" + moduleIds + '\'' +
                 ", createBy='" + createBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

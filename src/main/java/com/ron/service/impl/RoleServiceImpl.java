@@ -60,6 +60,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
+     * 查询所有二级角色信息
+     *
+     * @return List
+     */
+    @Override
+    public List<SystemUserRole> getAllChildRoleList() {
+        return systemUserRoleMapper.getAllChildRoleList();
+    }
+
+    /**
      * 查询某个部门信息
      *
      * @param roleId
@@ -145,6 +155,27 @@ public class RoleServiceImpl implements RoleService {
         }
 
         return true;
+    }
+
+    /**
+     * 角色授权
+     *
+     * @param systemUserRole 角色实体
+     * @return boolean
+     */
+    @Override
+    public boolean authorizationRole(SystemUserRole systemUserRole) {
+        if (systemUserRole.getParentId() == null || systemUserRole.getParentId() < 0 || systemUserRole.getId() == null || systemUserRole.getId() <= 0) {
+            return false;
+        }
+        if (StringUtils.isEmpty(systemUserRole.getModuleIds()) || StringUtils.isEmpty(systemUserRole.getCreateBy())) {
+            return false;
+        }
+        int result = systemUserRoleMapper.authorizationRole(systemUserRole);
+        if (result > 0) {
+            return true;
+        }
+        return false;
     }
 
     /**

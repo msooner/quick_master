@@ -54,10 +54,17 @@ public final class DigitConstant {
     public static final int ADD_ROLE_SUCCESS = 0;
     public static final int ADD_ROLE_INFO_ERROR = 1;
     public static final int ROLE_INFO_IS_EXISTS = 2;
+    public static final int ROLE_INFO_IS_NOT_EXISTS = 4;
     public static final int ADD_ROLE_FAIL = 3;
     public static final int GET_ROLE_LIST_SUCCESS = 0;
+    public static final int EDIT_ROLE_SUCCESS = 0;
     public static final int DELETE_ROLE_SUCCESS = 0;
+    public static final int EDIT_ROLE_FAIL = 2;
     public static final int DELETE_ROLE_FAIL = 2;
+    public static final int EDIT_ROLE_NAME_ERROR = 3;
+
+    public static final int AUTHORIZATION_SUCCESS = 0;
+    public static final int AUTHORIZATION_FAIL = 1;
 
     //模块相关
     public static final int ADD_MODULE_SUCCESS = 0;

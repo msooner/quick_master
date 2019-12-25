@@ -47,6 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //如果用户未登录则跳转至登录页面
         if (StringUtils.isEmpty(userCookie) || ! systemUserService.checkUserIsLogged(userCookie)) {
             response.sendRedirect("/login");
+            return false;
         }
 
         return true;

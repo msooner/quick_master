@@ -14,39 +14,47 @@ import java.util.List;
 public interface SystemUserRoleMapper {
 
     /**
-     * 添加部门信息
+     * 添加角色信息
      *
-     * @param systemUserRole 部门实体
+     * @param systemUserRole 角色实体
      * @return int
      */
     int addRole(SystemUserRole systemUserRole);
 
     /**
-     * 编辑部门信息
+     * 编辑角色信息
      *
-     * @param systemUserRole 部门实体
+     * @param systemUserRole 角色实体
      * @return int
      */
     int editRole(SystemUserRole systemUserRole);
 
     /**
-     * 删除部门信息
+     * 角色授权
      *
-     * @param roleId 部门ID
+     * @param systemUserRole 角色实体
+     * @return int
+     */
+    int authorizationRole(SystemUserRole systemUserRole);
+
+    /**
+     * 删除角色信息
+     *
+     * @param roleId 角色ID
      * @return int
      */
     int deleteRole(Integer roleId);
 
     /**
-     * 删除下级部门信息
+     * 删除下级角色信息
      *
-     * @param parentId 上级部门id
+     * @param parentId 上级角色id
      * @return int
      */
     int deleteChildRole(@Param("parentId") Integer parentId);
 
     /**
-     * 查询某个部门信息
+     * 查询某个角色信息
      *
      * @param roleId
      * @return SystemUserRole
@@ -61,25 +69,32 @@ public interface SystemUserRoleMapper {
     List<SystemUserRole> getAllRoleList();
 
     /**
-     *  查询所有部门信息
+     *  查询所有角色信息
      *
      *  @return List
      */
     List<SystemUserRole> getRoleList();
 
     /**
-     * 查询部门的子部门
+     * 查询角色的子角色
      *
-     * @param parentId 父部门id
+     * @param parentId 父角色id
      * @return List
      */
     List<SystemUserRole> getChildRoleList(@Param("parentId") Integer parentId);
 
     /**
-     * 检测部门是否存在
+     * 查询所有子角色
      *
-     * @param roleName 部门名称
-     * @param parentId 上级部门ID
+     * @return List
+     */
+    List<SystemUserRole> getAllChildRoleList();
+
+    /**
+     * 检测角色是否存在
+     *
+     * @param roleName 角色名称
+     * @param parentId 上级角色ID
      * @return
      */
     SystemUserRole checkRole(@Param("roleName") String roleName, @Param("parentId") Integer parentId);

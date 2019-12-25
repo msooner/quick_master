@@ -84,9 +84,14 @@
                                     <div class="clearfix">
                                         <div class="btn-group">
                                             <button id="sample_editable_1_new" class="btn green">
-                                                添加角色权限 <i class="icon-plus"></i>
+                                                添加角色 <i class="icon-plus"></i>
                                             </button>
                                         </div>
+                                        <!--<div class="btn-group">-->
+                                            <!--<button id="grant_authorization" class="btn green">-->
+                                                <!--角色授权 <i class="icon-key"></i>-->
+                                            <!--</button>-->
+                                        <!--</div>-->
                                     </div>
                                     <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                         <thead>
@@ -95,6 +100,7 @@
                                                 <th class="center">创建人</th>
                                                 <th class="center">创建日期</th>
                                                 <th class="center">最后编辑</th>
+                                                <th class="center">授权</th>
                                                 <th class="center">编辑</th>
                                                 <th class="center">删除</th>
                                             </tr>
@@ -105,6 +111,9 @@
                                                 <td class="center">[[${role.createBy}]]</td>
                                                 <td class="center">[[${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                                                 <td class="center">[[${#dates.format(role.updateTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                                <td class="center">
+                                                    <a th:if="${role.parentId > 0}" th:href="@{/admin/authorization-role(roleId=${role.id})}"  class="btn mini green" data-toggle="modal"><i class="icon-key"></i>授权</a>
+                                                </td>
                                                 <td>
                                                     <a th:href="@{/admin/edit-role(roleId=${role.id})}" class="btn mini purple" data-toggle="modal"><i class="icon-edit"></i>编辑</a>
                                                 </td>

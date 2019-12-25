@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>添加模块信息-Quick Master后台管理系统</title>
+        <title>编辑角色信息-Quick Master后台管理系统</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -32,6 +32,14 @@
                 color: red;
                 font-style: italic;
             }
+            .back{
+                background-color: #efefef;
+                border: 1px solid #f0f6fa;
+                display: inline-block;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+            }
 
         </style>
 
@@ -49,7 +57,7 @@
         <div class="page-container row-fluid">
 
             <!-- BEGIN SIDEBAR -->
-            <div th:replace="public/menu :: menu('module')"></div>
+            <div th:replace="public/menu :: menu('role')"></div>
             <!-- END SIDEBAR -->
 
             <!-- BEGIN PAGE -->
@@ -61,7 +69,7 @@
                         <div class="span12">
                             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                             <h3 class="page-title">
-                                添加模块信息
+                                编辑角色信息
                             </h3>
                             <ul class="breadcrumb">
                                 <li>
@@ -70,11 +78,11 @@
                                     <i class="icon-angle-right"></i>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin/module-manager}">模块管理</a>
+                                    <a th:href="@{/admin/role-manager}">角色管理</a>
                                     <i class="icon-angle-right"></i>
                                 </li>
                                 <li>
-                                    <a href="#">添加模块信息</a>
+                                    <a href="#">编辑角色信息</a>
                                 </li>
                             </ul>
                             <!-- END PAGE TITLE & BREADCRUMB-->
@@ -90,7 +98,7 @@
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-reorder"></i>
-                                        <span class="hidden-480">添加模块</span>
+                                        <span class="hidden-480">编辑角色信息</span>
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
@@ -107,25 +115,18 @@
                                                         <span></span>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">模块名称</label>
+                                                        <label class="control-label">角色名称</label>
                                                         <div class="controls">
-                                                            <input type="text" placeholder="模块名称" class="m-wrap medium" name="moduleName" id="moduleName"/>
+                                                            <input type="text" placeholder="角色名称" class="m-wrap medium" name="roleName" id="roleName" th:value="${systemUserRole.roleName}"/>
                                                             <span class="help-inline help-tip">* 必填</span>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
-                                                        <label class="control-label">模块URL</label>
-                                                        <div class="controls">
-                                                            <input type="text" placeholder="模块URL" class="m-wrap medium" name="moduleUrl" id="moduleUrl"/>
-                                                            <span class="help-inline help-tip">* 必填</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">所属模块</label>
+                                                        <label class="control-label">所属角色</label>
                                                         <div class="controls line">
                                                             <select class="medium m-wrap" tabindex="1" name="parentId" id="parentId">
-                                                                <option value="0">无上级模块</option>
-                                                                <option th:if="${not #lists.isEmpty(systemModules)}" th:each="module: ${systemModules}" th:value="${module.id}" th:text="${module.moduleName}"></option>
+                                                                <option th:value="${parentRole != null ? parentRole.id : 0}" th:text="${parentRole != null ? parentRole.roleName : '无上级角色'}"></option>
+                                                                <option th:if="${not #lists.isEmpty(roles)}" th:each="role: ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>
                                                             </select>
                                                             <span class="help-inline help-tip">* 默认为一级角色</span>
                                                         </div>
@@ -138,7 +139,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-actions">
-                                                        <button type="submit" class="btn blue" id="addModuleForm"><i class="icon-ok"></i>保存</button>
+                                                        <input name="id" th:value="${systemUserRole.id}" type="hidden" id="roleId"/>
+                                                        <button type="submit" class="btn blue" id="editRoleForm"><i class="icon-ok"></i>保存</button>
                                                         <button type="button" class="btn">取消</button>
                                                     </div>
                                                 </form>
@@ -183,7 +185,7 @@
         <script th:src="@{../../js/jquery.blockui.min.js}" type="text/javascript"></script>
         <script th:src="@{../../js/jquery.cookie.min.js}" type="text/javascript"></script>
         <script th:src="@{../../js/jquery.uniform.min.js}" type="text/javascript" ></script>
-        <script th:src="@{../../js/module.js}"></script>
+        <script th:src="@{../../js/role.js}"></script>
         <!-- END CORE PLUGINS -->
         <script th:src="@{../../js/app.js}" ></script>
 

@@ -26,6 +26,11 @@
         select * from r_system_role where parent_id = #{parentId}
     </select>
     
+    <!--获取所有二级角色列表-->
+    <select id="getAllChildRoleList" resultType="com.ron.entity.SystemUserRole">
+        select * from r_system_role where parent_id > 0;
+    </select>
+    
     <select id="checkRole" resultType="com.ron.entity.SystemUserRole">
         select id from r_system_role where role_name = #{roleName} and parent_id = #{parentId}
     </select>
@@ -43,7 +48,11 @@
       delete from r_system_role where parent_id = ${parentId}
     </delete>
     
-    <update id="editRole" flushCache="true" statementType="PREPARED" timeout="20">
-        update r_system_role set role_name = #{role_name}, parent_id = #{parentId}, create_by = #{createBy} where id = #{id}
+    <update id="editRole" flushCache="true" statementType="PREPARED" timeout="20" parameterType="com.ron.entity.SystemUserRole">
+        update r_system_role set role_name = #{roleName}, parent_id = #{parentId}, create_by = #{createBy} where id = #{id}
+    </update>
+    
+    <update id="authorizationRole" flushCache="true" statementType="PREPARED" timeout="20" parameterType="com.ron.entity.SystemUserRole">
+        update r_system_role set moduleIds = #{moduleIds}, create_by = #{createBy} where id = #{id} and parent_id = #{parentId}
     </update>
 </mapper>

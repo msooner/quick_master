@@ -34,6 +34,11 @@ spring:
   messages:
     basename: i18n.login,i18n.index,i18n.error
 
+#mybatis-plus配置控制台打印完整带参数SQL语句，主要方便开发调试，生产环境不需要
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -54,7 +59,8 @@ mybatis:
 logging:
   config: src/main/resources/logback.xml
   level:
-    com.ron.mapper: INFO #此包下的所有日志输入级别，在生产环境中设置成ERROR
+    #com.ron.mapper: INFO #此包下的所有日志输入级别，在生产环境中设置成ERROR
+    com.ron.mapper: debug
 
 others:
   host: http://127.0.0.1:8080/

@@ -55,12 +55,19 @@ public final class StringConsant {
 
     //角色相关
     public static final String ADD_ROLE_SUCCESS = "成功添加角色信息!";
+    public static final String EDIT_ROLE_SUCCESS = "成功编辑角色信息!";
+    public static final String EDIT_ROLE_NAME_ERROR = "角色名称不能与父级角色名称相同!";
     public static final String ADD_ROLE_INFO_ERROR = "角色信息有误!";
     public static final String ROLE_INFO_IS_EXISTS = "角色信息已经存在!";
+    public static final String ROLE_INFO_IS_NOT_EXISTS = "角色信息不存在!";
     public static final String ADD_ROLE_FAIL = "服务端错误,添加角色信息失败!";
+    public static final String EDIT_ROLE_FAIL = "服务端错误,编辑角色信息失败!";
     public static final String GET_ROLE_LIST_SUCCESS = "成功获取角色列表信息!";
     public static final String DELETE_ROLE_SUCCESS = "成功删除角色信息!";
     public static final String DELETE_ROLE_FAIL = "删除角色信息失败!";
+
+    public static final String AUTHORIZATION_SUCCESS = "授权成功!";
+    public static final String AUTHORIZATION_FAIL = "授权失败!";
 
     //模块相关
     public static final String ADD_MODULE_SUCCESS = "成功添加模块信息!";

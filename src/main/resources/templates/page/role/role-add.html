@@ -36,7 +36,8 @@
                 background-color: #efefef;
                 border: 1px solid #f0f6fa;
                 display: inline-block;
-                margin-bottom: 15px;
+                margin-top: 5px;
+                margin-bottom: 5px;
                 margin-left: 10px;
             }
 
@@ -128,17 +129,6 @@
                                                                 <option th:if="${not #lists.isEmpty(roles)}" th:each="role: ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>
                                                             </select>
                                                             <span class="help-inline help-tip">* 默认为一级角色</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">权限列表</label>
-                                                        <div class="controls">
-                                                            <label class="checkbox line back" th:if="${not #lists.isEmpty(modules)}" th:each="module: ${modules}">
-                                                                <input type="checkbox" th:value="${module.id}" /> [[${module.moduleName}]]
-                                                                <label class="checkbox line " th:if="${#maps.containsKey(childModuleMap, module.id)}">
-                                                                    <input type="checkbox" th:each="childModule: ${childModuleMap[module.id]}" th:value="${childModule.id}" th:text="${childModule.moduleName}"/>
-                                                                </label>
-                                                            </label>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">

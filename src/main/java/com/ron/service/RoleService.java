@@ -32,13 +32,19 @@ public interface RoleService {
     List<SystemUserRole> getChildRoleList(Integer parentId);
 
     /**
+     * 查询所有二级角色信息
+     *
+     * @return List
+     */
+    List<SystemUserRole> getAllChildRoleList();
+
+    /**
      * 查询某个角色信息
      *
      * @param roleId
      * @return SystemUserRole
      */
     SystemUserRole getRoleInfo(int roleId);
-
 
     /**
      * 添加角色信息
@@ -71,6 +77,14 @@ public interface RoleService {
      * @return boolean
      */
     boolean editRole(SystemUserRole systemUserRole);
+
+    /**
+     * 角色授权
+     *
+     * @param systemUserRole 角色实体
+     * @return boolean
+     */
+    boolean authorizationRole(SystemUserRole systemUserRole);
 
     /**
      * 检测角色是否已经存在
