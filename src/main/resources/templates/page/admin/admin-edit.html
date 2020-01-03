@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>添加管理员-Quick Master后台管理系统</title>
+        <title>编辑系统用户-Quick Master后台管理系统</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -58,7 +58,7 @@
                         <div class="span12">
                             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                             <h3 class="page-title">
-                                添加系统用户
+                                编辑系统用户
                             </h3>
                             <ul class="breadcrumb">
                                 <li>
@@ -71,7 +71,7 @@
                                     <i class="icon-angle-right"></i>
                                 </li>
                                 <li>
-                                    <a href="#">添加系统用户</a>
+                                    <a href="#">编辑系统用户</a>
                                 </li>
                             </ul>
                             <!-- END PAGE TITLE & BREADCRUMB-->
@@ -87,7 +87,7 @@
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-reorder"></i>
-                                        <span class="hidden-480">添加管理员</span>
+                                        <span class="hidden-480">编辑系统用户</span>
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
@@ -98,7 +98,7 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="portlet_tab1">
                                                 <!-- BEGIN FORM-->
-                                                <form action="" class="form-horizontal admin-form" method="post">
+                                                <form action="" class="form-horizontal edit-admin-form" method="post">
                                                     <h3 class="form-title"></h3>
                                                     <div class="alert alert-error hide">
                                                         <button class="close" data-dismiss="alert"></button>
@@ -114,7 +114,7 @@
                                                         <div class="controls">
                                                             <div class="input-icon left">
                                                                 <i class="icon-user"></i>
-                                                                <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" name="username" id="username"/>
+                                                                <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名" name="username" id="username" th:value="${currentUser.username}"/>
                                                                 <span class="help-inline help-tip">* 必填</span>
                                                             </div>
                                                         </div>
@@ -125,18 +125,7 @@
                                                         <div class="controls">
                                                             <div class="input-icon left">
                                                                 <i class="icon-key"></i>
-                                                                <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="password" id="password"/>
-                                                                <span class="help-inline help-tip">* 必填</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                                                        <label class="control-label">重复密码</label>
-                                                        <div class="controls">
-                                                            <div class="input-icon left">
-                                                                <i class="icon-key"></i>
-                                                                <input class="m-wrap placeholder-no-fix" type="password" placeholder="重复密码" name="rePassword" id="rePassword"/>
+                                                                <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="password" id="password" th:value="${currentUser.password}"/>
                                                                 <span class="help-inline help-tip">* 必填</span>
                                                             </div>
                                                         </div>
@@ -147,7 +136,7 @@
                                                         <div class="controls">
                                                             <div class="input-icon left">
                                                                 <i class="icon-envelope"></i>
-                                                                <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户邮箱" name="email" id="email"/>
+                                                                <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户邮箱" name="email" id="email" th:value="${currentUser.email}"/>
                                                                 <span class="help-inline help-tip">* 必填</span>
                                                             </div>
                                                         </div>
@@ -157,16 +146,15 @@
                                                         <div class="controls">
                                                             <select class="medium m-wrap" tabindex="1" name="deptId" id="deptId">
                                                                 <option th:if="${#lists.isEmpty(departments)}" th:value="0" th:text="请先添加部门信息"></option>
-                                                                <option th:if="${not #lists.isEmpty(departments)}"  th:each="department: ${departments}" th:value="${department.id}" th:text="${department.departmentName}"></option>
+                                                                <option th:if="${not #lists.isEmpty(departments)}"  th:each="department: ${departments}" th:value="${department.id}" th:text="${department.departmentName}" th:selected="${currentUser.deptId == department.id ? true :false}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
                                                         <label class="control-label">用户角色</label>
                                                         <div class="controls">
-                                                            <select class="medium m-wrap" tabindex="1" name="roleId" id="roleId">
-                                                                <option value="1">系统管理员</option>
-                                                                <option th:each="systemUserRole: ${systemUserRoles}" th:value="${systemUserRole.id}" th:text="${systemUserRole.roleName}"></option>
+                                                            <select class="medium m-wrap" tabindex="1" name="roleId" id="roleId" th:disabled="${canChangeRole ? false : true}">
+                                                                <option th:each="systemUserRole: ${systemUserRoles}" th:value="${systemUserRole.id}" th:text="${systemUserRole.roleName}" th:selected="${currentUser.roleId == systemUserRole.id ? true :false}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -174,11 +162,11 @@
                                                         <label class="control-label">用户状态</label>
                                                         <div class="controls">
                                                             <label class="radio">
-                                                                <input type="radio" name="isLocked" value="1"/>
+                                                                <input type="radio" name="isLocked" value="1" th:checked="${currentUser.isLocked == 1 ? true : false}"/>
                                                                 锁定
                                                             </label>
                                                             <label class="radio">
-                                                                <input type="radio" name="isLocked" value="0" checked/>
+                                                                <input type="radio" name="isLocked" value="0" th:checked="${currentUser.isLocked == 0 ? true : false}"/>
                                                                 开放
                                                             </label>
                                                         </div>
@@ -186,8 +174,9 @@
                                                     <div class="control-group">
                                                         <label class="control-label">操作人</label>
                                                         <div class="controls">
-                                                            <input type="hidden" th:value="${userInfo.username}" id="createBy"/>
-                                                            <input class="m-wrap medium" type="text" th:placeholder="${userInfo.username}" readonly th:value="${userInfo.username}"/>
+                                                            <input type="hidden" name="id" id="id" th:value="${systemUser.id}"/>
+                                                            <input type="hidden" th:value="${systemUser.username}" id="createBy"/>
+                                                            <input class="m-wrap medium" type="text" th:placeholder="${systemUser.username}" readonly th:value="${systemUser.username}"/>
                                                             <span class="help-inline"></span>
                                                         </div>
                                                     </div>

@@ -1,17 +1,20 @@
 package com.ron.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.ron.common.constants.StringConsant;
 import com.ron.entity.SystemUser;
 import com.ron.mapper.SystemUserMapper;
 import com.ron.service.SystemUserService;
 import com.ron.utils.CookieUtil;
 import com.ron.utils.RedisUtil;
+import com.ron.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -32,8 +35,8 @@ public class SystemUserServiceImpl implements SystemUserService {
     /**
      * 从redis缓存中获取用记信息
      *
-     * @param userCookie
-     * @return
+     * @param userCookie 用户cookie
+     * @return Object
      */
     @Override
     public Object getUserInfo(String userCookie) {
@@ -49,9 +52,9 @@ public class SystemUserServiceImpl implements SystemUserService {
     /**
      * 将用户信息存入redis缓存
      *
-     * @param userCacheKey
-     * @param systemUser
-     * @param cacheTime
+     * @param userCacheKey 缓存key
+     * @param systemUser 用户实体
+     * @param cacheTime 缓存时间
      */
     @Override
     public void setUserInfo(String userCacheKey, SystemUser systemUser, int cacheTime) {
@@ -63,29 +66,68 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     /**
      * 查询所有用户信息
+     *
+     * @return List
      */
     @Override
     public List<SystemUser> getAllUsers() {
         return systemUsersMapper.getUsers();
     }
 
+    /**
+     * 级联查询所有的管理员列表
+     *
+     * @return List
+     */
+    @Override
+    public List<SystemUser> getSystemUserList() {
+        return systemUsersMapper.getSystemUserList();
+    }
+
+    /**
+     * 查询用户信息
+     *
+     * @param userId 用户id
+     * @return SystemUser
+     */
     @Override
     public SystemUser getUserById(int userId) {
         return systemUsersMapper.getUser(userId);
     }
 
     /**
+     * 根据用户名称获取用户信息
+     *
+     * @param username 用户名
+     * @return SystemUser
+     */
+    @Override
+    public SystemUser getUserByName(String username) {
+        if (StringUtils.isEmpty(username)) {
+            return null;
+        }
+        SystemUser systemUser = systemUsersMapper.getUserByName(username);
+
+        return systemUser;
+    }
+
+    /**
      * 获取登录用户信息
      *
-     * @param username
-     * @param password
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @return SystemUser
      */
     @Override
     public SystemUser getLoginUser(String username, String password) {
         return systemUsersMapper.getLoginUser(username, password);
     }
 
+    /**
+     * 管理员注册
+     *
+     * @param systemUser 用户实体
+     */
     @Override
     public void registerUser(SystemUser systemUser) {
         systemUsersMapper.registerUser(systemUser);
@@ -94,30 +136,53 @@ public class SystemUserServiceImpl implements SystemUserService {
     /**
      * 添加用户信息
      *
-     * @param user
-     * @return
+     * @param user 用户实体
+     * @return boolean
      */
     @Override
-    public void addUser(SystemUser user) {
+    public boolean addUser(SystemUser user) {
+        //检测用户信息
+        if (user == null || StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getEmail())) {
+            return false;
+        }
+        //检测角色和部门信息
+        if (user.getRoleId() == null || user.getRoleId() <= 0 || user.getDeptId() == null || user.getDeptId() <= 0) {
+            return false;
+        }
+        //检测锁定状态
+        if (user.getIsLocked() == null || (user.getIsLocked() != 0 && user.getIsLocked() != 1)) {
+            user.setIsLocked((byte) 1);
+        }
+        //密码加密
+        String MD5Password = StringUtil.getMD5String(user.getPassword(), StringConsant.PASSWORD_SALT);
+        user.setPassword(MD5Password);
+        int addResult = systemUsersMapper.addSystemUser(user);
+        if (addResult > 0) {
+            return true;
+        }
 
+        return false;
     }
 
+    /**
+     * 检测用户
+     *
+     * @param user 用户实体
+     * @return boolean
+     */
     @Override
     public boolean checkSaveUser(SystemUser user) {
         if (user == null) {
             return false;
         }
         //检测用户名
-        if ("".equals(user.getUsername()) || user.getUsername() == null) {
+        if (StringUtils.isEmpty(user.getUsername())) {
             return false;
         }
         //检测密码
-        if ("".equals(user.getPassword()) || user.getPassword() == null) {
+        if (StringUtils.isEmpty(user.getPassword())) {
             return false;
         }
-//        if ("".equals(user.getRePassword()) || user.getPassword() == null) {
-//            return false;
-//        }
 
         return true;
     }
@@ -125,8 +190,8 @@ public class SystemUserServiceImpl implements SystemUserService {
     /**
      * 删除用户信息
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return int
      */
     @Override
     public int deleteUser(Integer userId) {
@@ -140,19 +205,27 @@ public class SystemUserServiceImpl implements SystemUserService {
     /**
      * 编辑用户信息
      *
-     * @param user
-     * @return
+     * @param user 用户实体
+     * @return boolean
      */
     @Override
-    public void editUser(SystemUser user) {
-
+    public boolean editUser(SystemUser user) {
+        //检测参数
+        if (user == null) {
+            return false;
+        }
+        int editResult = systemUsersMapper.editUser(user);
+        if (editResult <= 0) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * 判断用户是否已经登录
      *
-     * @param userCookie
-     * @return
+     * @param userCookie 用户cookie
+     * @return boolean
      */
     public boolean checkUserIsLogged(String userCookie) {
         if (StringUtils.isEmpty(userCookie)) {
@@ -167,11 +240,28 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
 
     /**
+     * 检查非法用户跳转至目标页
+     *
+     * @param response    HttpServletResponse
+     * @param redirectUrl 跳转url
+     * @param userCookie 用户cookie
+     */
+    @Override
+    public String redirectSystemUser(HttpServletResponse response, String redirectUrl, String userCookie) throws Exception {
+        if (StringUtils.isEmpty(userCookie) || ! this.checkUserIsLogged(userCookie)) {
+            redirectUrl = "/login";
+            response.sendRedirect(redirectUrl);
+        }
+
+        return "";
+    }
+
+    /**
      * 检测用户是否已经存在
      *
-     * @param username
-     * @param email
-     * @return
+     * @param username 用户名
+     * @param email 邮箱
+     * @return boolean
      */
     @Override
     public boolean checkRegisterSystemUser(String username, String email) {
@@ -185,6 +275,14 @@ public class SystemUserServiceImpl implements SystemUserService {
         return false;
     }
 
+    /**
+     * 更新找回的密码
+     *
+     * @param username 用户名
+     * @param email 邮箱
+     * @param password 密码
+     * @return boolean
+     */
     @Override
     public boolean updateForgotPassword(String username, String email, String password) {
         if (username.length() > 0 && email.length() > 0 && password.length() > 0) {
@@ -194,6 +292,11 @@ public class SystemUserServiceImpl implements SystemUserService {
         return false;
     }
 
+    /**
+     * 登出用户
+     *
+     * @param userCookie 用户cookie
+     */
     @Override
     public void logout(String userCookie) {
         if (! StringUtils.isEmpty(userCookie)) {

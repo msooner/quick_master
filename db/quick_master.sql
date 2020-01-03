@@ -32,8 +32,7 @@ CREATE TABLE `r_system_user` (
   `username` varchar(255) NOT NULL,
   `credential_expired_date` datetime DEFAULT NULL,
   `is_locked` bit(1) DEFAULT NULL,
-  `role_names` varchar(255) DEFAULT NULL,
-  `role_ids` varchar(255) DEFAULT NULL,
+  `role_id` varchar(255) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;

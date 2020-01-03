@@ -29,6 +29,14 @@ public interface SystemUserMapper {
     List<SystemUser> getUsers();
 
     /**
+     * 根据用户名获取用户信息
+     *
+     * @param username 用户名
+     * @return SystemUser
+     */
+    SystemUser getUserByName(@Param("username") String username);
+
+    /**
      * 用户登录
      *
      * @param username 用户名
@@ -71,10 +79,33 @@ public interface SystemUserMapper {
     boolean updateForgotPassword(@Param("username") String username, @Param("email") String email, @Param("password") String password);
 
     /**
+     * 编辑管理员信息
+     *
+     * @param systemUser 管理员实体
+     * @return int
+     */
+    int editUser(SystemUser systemUser);
+
+    /**
      * 删除用户信息
      *
      * @param userId 用户ID
      * @return int
      */
     int deleteUser(Integer userId);
+
+    /**
+     * 添加管理员信息
+     *
+     * @param systemUser 系统用户实体
+     * @return int
+     */
+    int addSystemUser(SystemUser systemUser);
+
+    /**
+     * 级联查询所有的管理员列表
+     *
+     * @return List
+     */
+    List<SystemUser> getSystemUserList();
 }

@@ -92,10 +92,11 @@
                                         <thead>
                                             <tr>
                                                 <th class="center">用户名</th>
-                                                <th class="center">创建人</th>
                                                 <th class="center">用户角色</th>
+                                                <th class="center">所在部门</th>
+                                                <th class="center">创建人</th>
+                                                <th class="center">用户状态</th>
                                                 <th class="center">生成日期</th>
-                                                <th class="center">最后编辑</th>
                                                 <th class="center">编辑</th>
                                                 <th class="center">删除</th>
                                             </tr>
@@ -103,12 +104,13 @@
                                         <tbody th:if="${not #lists.isEmpty(allUsers)}">
                                             <tr class=""  th:each="user:${allUsers}">
                                                 <td class="center">[[${user.username}]]</td>
+                                                <td class="center">[[${user.role.roleName}]]</td>
+                                                <td class="center">[[${user.department.departmentName}]]</td>
                                                 <td class="center">[[${user.createdBy}]]</td>
-                                                <td class="center">[[${user.roleNames}]]</td>
-                                                <td class="center">[[${#dates.format(user.createdDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                                <td class="center">[[${user.isLocked == 0 ? '正常' : '锁定'}]]</td>
                                                 <td class="center">[[${#dates.format(user.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                                                 <td>
-                                                    <a th:href="@{/admin/admim-edit(userId=${user.id})}" class="btn mini purple" data-toggle="modal"><i class="icon-edit"></i>编辑</a>
+                                                    <a th:href="@{/admin/admin-edit(userId=${user.id})}" class="btn mini purple" data-toggle="modal"><i class="icon-edit"></i>编辑</a>
                                                 </td>
                                                 <td>
                                                     <a href="#" class="btn mini black" th:data-uid="${user.id}"><i class="icon-trash"></i>删除</a>

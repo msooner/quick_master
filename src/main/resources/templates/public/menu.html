@@ -32,6 +32,20 @@
                         <span class="selected"></span>
                     </a>
                 </li>
+                <li th:class="${active == 'department' ? 'start active' : ''}">
+                    <a th:href="@{/admin/department-manager}">
+                        <i class="icon-cogs"></i>
+                        <span class="title">部门管理</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li th:class="${active == 'user' ? 'start' : ''}">
+                    <a th:href="@{/admin/user-manager}">
+                        <i class="icon-user"></i>
+                        <span class="title">会员管理</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
                 <li th:class="${active == 'admin' ? 'active' : ''}">
                     <a th:href="@{/admin/admin-manager}">
                         <i class="icon-group"></i>
@@ -50,20 +64,6 @@
                     <a th:href="@{/admin/module-manager}">
                         <i class="icon-th-large"></i>
                         <span class="title">系统模块管理</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li th:class="${active == 'department' ? 'start active' : ''}">
-                    <a th:href="@{/admin/department-manager}">
-                        <i class="icon-cogs"></i>
-                        <span class="title">部门管理</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li th:class="${active == 'user' ? 'start' : ''}">
-                    <a th:href="@{/admin/user-manager}">
-                        <i class="icon-user"></i>
-                        <span class="title">会员管理</span>
                         <span class="selected"></span>
                     </a>
                 </li>

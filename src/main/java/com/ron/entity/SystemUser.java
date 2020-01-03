@@ -30,15 +30,32 @@ public class SystemUser implements Serializable {
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lastModifiedDate;
 
-    private String deptId;
+    private Integer deptId;
+    private SystemUserDepartment department;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date credentialExpiredDate;
 
-    private Byte isLocked;
-    private String roleNames;
-    private String roleIds;
+    private  Byte isLocked;
+    private Integer roleId;
+    private SystemUserRole role;
+
+    public SystemUserDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(SystemUserDepartment department) {
+        this.department = department;
+    }
+
+    public SystemUserRole getRole() {
+        return role;
+    }
+
+    public void setRole(SystemUserRole role) {
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;
@@ -104,11 +121,11 @@ public class SystemUser implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getDeptId() {
+    public Integer getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(String deptId) {
+    public void setDeptId(Integer deptId) {
         this.deptId = deptId;
     }
 
@@ -128,20 +145,12 @@ public class SystemUser implements Serializable {
         this.isLocked = isLocked;
     }
 
-    public String getRoleNames() {
-        return roleNames;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleNames(String roleNames) {
-        this.roleNames = roleNames;
-    }
-
-    public String getRoleIds() {
-        return roleIds;
-    }
-
-    public void setRoleIds(String roleIds) {
-        this.roleIds = roleIds;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     @Override
@@ -150,16 +159,35 @@ public class SystemUser implements Serializable {
                 "id=" + id +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdDate=" + createdDate +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", lastModifiedDate=" + lastModifiedDate +
-                ", deptId='" + deptId + '\'' +
+                ", deptId=" + deptId +
+                ", department=" + department +
                 ", credentialExpiredDate=" + credentialExpiredDate +
                 ", isLocked=" + isLocked +
-                ", roleNames='" + roleNames + '\'' +
-                ", roleIds='" + roleIds + '\'' +
+                ", roleId=" + roleId +
+                ", role=" + role +
                 '}';
+    }
+
+    public SystemUser(Integer id, String password, String username, String email, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, Integer deptId, SystemUserDepartment department, Date credentialExpiredDate, Byte isLocked, Integer roleId, SystemUserRole role) {
+        this.id = id;
+        this.password = password;
+        this.username = username;
+        this.email = email;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
+        this.deptId = deptId;
+        this.department = department;
+        this.credentialExpiredDate = credentialExpiredDate;
+        this.isLocked = isLocked;
+        this.roleId = roleId;
+        this.role = role;
     }
 
     public SystemUser() {}
@@ -173,7 +201,7 @@ public class SystemUser implements Serializable {
         this.isLocked = isLocked;
     }
 
-    public SystemUser(Integer id, String password, String username, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, String deptId, Date credentialExpiredDate, Byte isLocked, String roleNames, String roleIds) {
+    public SystemUser(Integer id, String password, String username, String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate, Integer deptId, Date credentialExpiredDate, Byte isLocked, Integer roleId, SystemUserRole role, SystemUserDepartment department) {
         this.id = id;
         this.password = password;
         this.username = username;
@@ -184,7 +212,8 @@ public class SystemUser implements Serializable {
         this.deptId = deptId;
         this.credentialExpiredDate = credentialExpiredDate;
         this.isLocked = isLocked;
-        this.roleNames = roleNames;
-        this.roleIds = roleIds;
+        this.roleId = roleId;
+        this.role = role;
+        this.department = department;
     }
 }

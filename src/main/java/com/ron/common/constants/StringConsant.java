@@ -35,7 +35,12 @@ public final class StringConsant {
 
     //管理员相关提示
     public static final String ADD_ADMIN_SUCCESS = "管理员信息已成功添加!";
-    public static final String ADD_ADMIN_INFO_ERROR = "添加的管理员信息有误!";
+    public static final String ADD_ADMIN_INFO_ERROR = "服务端错误，添加的管理员失败!";
+
+    public static final String MANAGER_USERNAME_ERROR = "管理员用户名错误!";
+
+    public static final String EDIT_ADMIN_SUCCESS = "管理员信息已成功编辑!";
+    public static final String EDIT_ADMIN_INFO_ERROR = "服务端错误，管理员信息编辑失败!";
 
     public static final String  DELETE_ADMIN_INFO_SUCCESS = "成功删除管理员信息!";
     public static final String  DELETE_ADMIN_INFO_FAIL = "删除管理员信息失败!";
@@ -81,6 +86,7 @@ public final class StringConsant {
 
     //参数相关
     public static final String REQUEST_PARAMETER_ERROR = "请求参数有误!";
+    public static final String ILLEGAL_OPERATION = "非法操作!";
 
     //加密salt
     public static final String PASSWORD_SALT = "hao123";

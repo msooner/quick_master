@@ -11,12 +11,36 @@
         select * from r_system_user
     </select>
     
+    <!--级联查询系统管理员列表-->
+    <resultMap id="systemUserListMap" type="com.ron.entity.SystemUser">
+        <id column="id" property="id"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="username" property="username"/>
+        <result column="is_locked" property="isLocked"/>
+        <result column="role_id" property="roleId"/>
+        <result column="last_modified_date" property="lastModifiedDate"/>
+        <result column="roleName" property="role.roleName"/>
+        <result column="departmentName" property="department.departmentName"/>
+    </resultMap>
+    <select id="getSystemUserList" resultMap="systemUserListMap">
+        select u.id id,u.created_by created_by,u.created_date created_date,u.dept_id dept_id,u.username username,u.is_locked is_locked,
+        u.role_id role_id,u.last_modified_date last_modified_date,r.role_name roleName,d.department_name departmentName
+        from r_system_user u, r_system_role r, r_system_department d
+        where u.role_id = r.id and u.dept_id = d.id
+    </select>
+    
     <select id="getUserByEmail" resultType="com.ron.entity.SystemUser">
-        select id, username, email, role_names, role_ids from r_system_user where email = #{email}
+        select id, username, email, role_id from r_system_user where email = #{email}
+    </select>
+    
+    <select id="getUserByName" resultType="com.ron.entity.SystemUser">
+        select id, username, email, role_id from r_system_user where username = #{username}
     </select>
     
     <select id="getLoginUser" resultType="com.ron.entity.SystemUser">
-        select id, username, role_names, role_ids, is_locked, created_date, last_modified_date from r_system_user where username = #{username} and password = #{password}
+        select id, username, role_id, is_locked, created_date, last_modified_date from r_system_user where username = #{username} and password = #{password}
     </select>
     
     <select id="checkRegisterSystemUser" resultType="com.ron.entity.SystemUser">
@@ -28,11 +52,51 @@
         values ( #{username}, #{password}, #{email}, #{createdBy} )
     </insert>
     
+    <insert id="addSystemUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.ron.entity.SystemUser">
+        insert into r_system_user(username, password, email, dept_id, role_id, is_locked,created_by)
+        values ( #{username}, #{password}, #{email}, #{deptId}, #{roleId}, #{isLocked}, #{createdBy} )
+    </insert>
+    
     <delete id="deleteUser" flushCache="true" statementType="PREPARED" timeout="20">
         delete from r_system_user where id = #{userId}
     </delete>
     
     <update id="updateForgotPassword" flushCache="true" statementType="PREPARED" timeout="20">
         update r_system_user set password = #{password} where username = #{username} and email = #{email}
+    </update>
+    
+    <update id="editUser" flushCache="true" statementType="PREPARED" timeout="20" parameterType="com.ron.entity.SystemUser">
+        update r_system_user
+          <set>
+              <if test="username != null">
+                  username = #{username},
+              </if>
+              <if test="password != null">
+                  password = #{password},
+              </if>
+              <if test="email != null">
+                  email = #{email},
+              </if>
+              <if test="deptId != null">
+                  dept_id = #{deptId},
+              </if>
+              <if test="roleId != null">
+                  role_id = #{roleId},
+              </if>
+              <if test="isLocked != null">
+                  is_locked = #{isLocked},
+              </if>
+              <if test="createdBy != null">
+                  last_modified_by = #{createdBy},
+              </if>
+              <if test="lastModifiedDate != null">
+                  last_modified_date = #{lastModifiedDate}
+              </if>
+          </set>
+          <where>
+              <if test="id != null">
+                  id = #{id}
+              </if>
+          </where>
     </update>
 </mapper>

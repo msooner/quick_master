@@ -44,4 +44,10 @@ public class SystemUserMapperTest {
         SystemUser row = systemUserMapper.getLoginUser("admin", MD5Password);
         System.out.println(row);
     }
+
+    @Test
+    public void testGetSystemUserList() {
+        List<SystemUser> systemUsers = systemUserMapper.getSystemUserList();
+        System.out.println(systemUsers);
+    }
 }

@@ -2,6 +2,7 @@ package com.ron.service;
 
 import com.ron.entity.SystemUser;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -31,12 +32,27 @@ public interface SystemUserService {
     List<SystemUser> getAllUsers();
 
     /**
+     * 级联查询所有的管理员列表
+     *
+     * @return List
+     */
+    List<SystemUser> getSystemUserList();
+
+    /**
      * 查询某个用户信息
      *
      * @param userId 用户id
      * @return SystemUser
      */
     SystemUser getUserById(int userId);
+
+    /**
+     * 根据用户名称获取用户信息
+     *
+     * @param username 用户名
+     * @return SystemUser
+     */
+    SystemUser getUserByName(String username);
 
     /**
      * 获取登录用户信息
@@ -57,7 +73,7 @@ public interface SystemUserService {
      *
      * @param user 用户实体
      */
-    void addUser(SystemUser user);
+    boolean addUser(SystemUser user);
 
     /**
      * 检测需要存储的用户信息是否合法
@@ -78,8 +94,9 @@ public interface SystemUserService {
      * 编辑用户信息
      *
      * @param user 用户实体
+     * @return boolean
      */
-    void editUser(SystemUser user);
+    boolean editUser(SystemUser user);
 
     /**
      * 检测用户是否已经登录
@@ -88,6 +105,14 @@ public interface SystemUserService {
      * @return boolean
      */
     boolean checkUserIsLogged(String userCookie);
+
+    /**
+     * 检查非法用户跳转至目标页
+     *
+     * @param response HttpServletResponse
+     * @param redirectUrl 跳转url
+     */
+    String redirectSystemUser(HttpServletResponse response, String redirectUrl, String userCookie) throws Exception;
 
     /**
      * 检测用户是否已经存在
