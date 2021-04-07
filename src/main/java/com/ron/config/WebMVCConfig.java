@@ -8,13 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+/**
+ * 项目配置类
+ */
 @Configuration
 public class WebMVCConfig implements WebMvcConfigurer{
 
+    //拦截器：判断是否登录
     @Autowired
     LoginInterceptor loginInterceptor;
 

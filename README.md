@@ -4,6 +4,8 @@
 
 * 前端： Bootstrap + Jquery
 
+* 测试账户： ron2019/hao123
+
 **测试环境**
 
 * IDEA + Maven-10.13 + Tomcat8 + JDK8
